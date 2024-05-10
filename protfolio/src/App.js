@@ -15,17 +15,17 @@ function App() {
         },
         {
             id: "01",
-            text: "個人資訊",
+            text: "個人",
             icon: <TbUser />,
         },
         {
             id: "02",
-            text: "歷史專案",
+            text: "專案",
             icon: <TbPresentation />,
         },
         {
             id: "03",
-            text: "聯絡方法",
+            text: "聯絡",
             icon: <TbPhone />,
         },
     ];
@@ -33,7 +33,16 @@ function App() {
     return (
         <div className="App" theme={isDarkMode ? "dark" : "light"}>
             <ColorButton setIsDarkMode={setIsDarkMode} />
-            <Menu items={menuitems} />
+            <Menu
+                items={menuitems}
+                selectItem={() => {}}
+                propstyle={{
+                    position: "fixed",
+                    bottom: "2rem",
+                    left: "50%",
+                    transform: "translate(-50%,0%)",
+                }}
+            />
         </div>
     );
 }

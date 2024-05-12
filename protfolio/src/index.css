@@ -34,17 +34,17 @@ body {
     background-color: var(--backgroundcolor);
 }
 .App[theme="dark"] {
-    --accentcolor: #88cf46;
+    --accentcolor: #f4a7b9;
     --primarycolor: #f4a7b9;
     --secondarycolor: #d9ab42;
     --backgroundcolor: #1c1c1c;
     --fontcolor: #fedfe1;
 }
 .App[theme="light"] {
-    --accentcolor: #e26c5a;
-    --primarycolor: #3b8ea5;
-    --secondarycolor: #985f2a;
-    --backgroundcolor: #eae8e1;
+    --accentcolor: #ffffff;
+    --primarycolor: #0d5661;
+    --secondarycolor: #e8b647;
+    --backgroundcolor: #d8e0e1;
     --fontcolor: #050003;
 }
 

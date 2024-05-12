@@ -20,7 +20,7 @@ const FullPage = ({ children, open, setOpen }) => {
                         >
                             <IoMdClose className={style.closebt} />
                         </button>
-                        <div className={style.modalcontent}>{children}</div>
+                        <div className={style.modalcontent}>{open}</div>
                     </div>
                 </div>
             ) : null}

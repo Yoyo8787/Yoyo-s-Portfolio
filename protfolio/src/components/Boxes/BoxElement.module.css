@@ -1,0 +1,40 @@
+.list {
+    max-width: 100%;
+    padding-top: 0.5rem;
+    gap: 1rem;
+}
+.list > li {
+    margin-left: 1rem;
+    margin-bottom: 0.25rem;
+}
+.txtbox {
+    margin-top: 0.5rem;
+}
+.pic {
+    transform: rotate(20deg);
+    width: 8rem;
+    position: relative;
+    top: -5.5rem;
+    left: 9rem;
+    border-radius: 0.25rem;
+}
+.pic2 {
+    transform: rotate(-20deg);
+    width: 30rem;
+    position: relative;
+    top: -1rem;
+    left: 1rem;
+    border-radius: 0.25rem;
+}
+.pic3 {
+    transform: rotate(-25deg);
+    width: 12rem;
+    position: relative;
+    top: 1rem;
+    left: 3rem;
+    border-radius: 0.25rem;
+}
+
+.hidden {
+    opacity: 0.8;
+}

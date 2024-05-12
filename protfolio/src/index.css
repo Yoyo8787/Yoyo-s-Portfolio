@@ -35,13 +35,10 @@ body {
 }
 .App[theme="dark"] {
     --accentcolor: #88cf46;
-    --primarycolor: #bdd5ea;
+    --primarycolor: #f4a7b9;
     --secondarycolor: #d9ab42;
-    --backgroundcolor: #464646;
-    --fontcolor: #e2efe7;
-    --fieldcolor: #486160;
-    --color-for-red: #ff6e58;
-    --color-for-green: rgb(0, 204, 0);
+    --backgroundcolor: #1c1c1c;
+    --fontcolor: #fedfe1;
 }
 .App[theme="light"] {
     --accentcolor: #e26c5a;
@@ -49,9 +46,6 @@ body {
     --secondarycolor: #985f2a;
     --backgroundcolor: #eae8e1;
     --fontcolor: #050003;
-    --fieldcolor: white;
-    --color-for-red: #dc371d;
-    --color-for-green: green;
 }
 
 ::-webkit-scrollbar {

@@ -1,15 +1,18 @@
 {
   "files": {
-    "main.css": "/Yoyo-s-Portfolio/static/css/main.acd712ea.css",
-    "main.js": "/Yoyo-s-Portfolio/static/js/main.bad9df56.js",
+    "main.css": "/Yoyo-s-Portfolio/static/css/main.f4db0f73.css",
+    "main.js": "/Yoyo-s-Portfolio/static/js/main.83831081.js",
     "static/js/453.235e154e.chunk.js": "/Yoyo-s-Portfolio/static/js/453.235e154e.chunk.js",
+    "static/media/project3_main.PNG": "/Yoyo-s-Portfolio/static/media/project3_main.e195380c0e9f41002fea.PNG",
+    "static/media/project2_main.PNG": "/Yoyo-s-Portfolio/static/media/project2_main.b18b75f0968a88d2dd97.PNG",
+    "static/media/project1_main2.PNG": "/Yoyo-s-Portfolio/static/media/project1_main2.ee94f79f635da2e9d490.PNG",
     "index.html": "/Yoyo-s-Portfolio/index.html",
-    "main.acd712ea.css.map": "/Yoyo-s-Portfolio/static/css/main.acd712ea.css.map",
-    "main.bad9df56.js.map": "/Yoyo-s-Portfolio/static/js/main.bad9df56.js.map",
+    "main.f4db0f73.css.map": "/Yoyo-s-Portfolio/static/css/main.f4db0f73.css.map",
+    "main.83831081.js.map": "/Yoyo-s-Portfolio/static/js/main.83831081.js.map",
     "453.235e154e.chunk.js.map": "/Yoyo-s-Portfolio/static/js/453.235e154e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.acd712ea.css",
-    "static/js/main.bad9df56.js"
+    "static/css/main.f4db0f73.css",
+    "static/js/main.83831081.js"
   ]
 }

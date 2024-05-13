@@ -19,6 +19,8 @@ import PersonalPage from "./components/FullPages/PersonalPage";
 import SchoolPage from "./components/FullPages/SchoolPage";
 import SkillPage from "./components/FullPages/SkillPage";
 import Project1Page from "./components/FullPages/Project1Page";
+import Project2Page from "./components/FullPages/Project2Page";
+import Project3Page from "./components/FullPages/Project3Page";
 
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
@@ -61,11 +63,11 @@ function App() {
             <DynamicRibbon />
             <div className={`${style.bentocontainer} bento-container`}>
                 <ProjectBox3
-                    setPage={() => setOpen(<Project1Page />)}
+                    setPage={() => setOpen(<Project3Page />)}
                     position={position}
                 />
                 <ProjectBox2
-                    setPage={() => setOpen(<Project1Page />)}
+                    setPage={() => setOpen(<Project2Page />)}
                     position={position}
                 />
                 <ProjectBox1

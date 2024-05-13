@@ -78,3 +78,24 @@
 .blockitem {
     padding-top: 0.1rem;
 }
+
+.project {
+    width: 35rem;
+    max-width: 80vw;
+}
+.project > p {
+    margin-top: 0.25rem;
+}
+.title {
+    margin-top: 1.5rem;
+}
+.func {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    align-items: center;
+}
+.func > img {
+    width: 10rem;
+    border-radius: 0.5rem;
+}

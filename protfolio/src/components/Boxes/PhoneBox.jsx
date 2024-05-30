@@ -1,37 +1,37 @@
 import React from "react";
 import Box from "../Box";
 import style from "./BoxElement.module.css";
-import pic from "../../assets/project3_main.PNG";
+import { FaPhoneAlt } from "react-icons/fa";
 
-const ProjectBox3 = ({ setPage, position = "00" }) => {
+const PhoneBox = ({ setPage, position = "00" }) => {
     const gridarea = () => {
         if (position === "00") {
-            return "3 / 4 / 5 / 5";
+            return "2 / 2 / 3 / 3";
         }
         if (position === "01") {
-            return "3 / 3 / 5 / 4";
+            return "1 / 4 / 2 / 5";
         }
         if (position === "02") {
-            return "1 / 4 / 3 / 5";
+            return "5 / 1 / 6 / 2";
         }
         if (position === "03") {
-            return "1 / 4 / 3 / 5";
+            return "1 / 1 / 2 / 2";
         }
         if (position === "00mobile") {
-            return "6 / 2 / 8 / 3";
+            return "2 / 2 / 3 / 3";
         }
         if (position === "01mobile") {
-            return "4 / 2 / 6 / 3";
+            return "4 / 1 / 5 / 2";
         }
         if (position === "02mobile") {
-            return "3 / 2 / 5 / 3";
+            return "6 / 1 / 7 / 2";
         }
         if (position === "03mobile") {
-            return "7 / 2 / 9 / 3";
+            return "2 / 1 / 3 / 2";
         }
     };
     const hidden = () => {
-        if (!position.includes("00") && !position.includes("02")) {
+        if (!position.includes("00") && !position.includes("03")) {
             return "0.2";
         } else {
             return "1";
@@ -39,15 +39,16 @@ const ProjectBox3 = ({ setPage, position = "00" }) => {
     };
     return (
         <Box
-            boxstyle={{ opacity: hidden() }}
+            boxstyle={{ aspectRatio: "1 / 1", opacity: hidden() }}
             gridArea={gridarea()}
             onclick={() => setPage()}
         >
-            <h2>實務經驗</h2>
-            <h3>木質構造建築暨結構查詢資料庫</h3>
-            <img src={pic} alt="" className={style.pic3} />
+            <div className={style.iconbox}>
+                <FaPhoneAlt className={style.largeicon} />
+                <div>0918887333</div>
+            </div>
         </Box>
     );
 };
 
-export default ProjectBox3;
+export default PhoneBox;

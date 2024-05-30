@@ -1,14 +1,20 @@
 .bentocontainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: clamp(1.75rem, calc(20vw - 0.75rem), 11.75rem);
+    grid-auto-rows: clamp(1.75rem, calc(21vw - 0.75rem), 11.75rem);
     gap: 1rem;
-    width: clamp(10rem, 80vw, 50rem);
+    width: clamp(10rem, 84vw, 50rem);
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     margin-top: 2rem;
     padding-bottom: 6rem;
+}
+@media (max-width: 650px) {
+    .bentocontainer {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: clamp(4.5rem, calc(42vw - 0.5rem), 24.5rem);
+    }
 }
 .bentocontainer::before {
     content: "";
@@ -17,4 +23,38 @@
     grid-row: 1 / 1;
     grid-column: 1 / 1;
     aspect-ratio: 1;
+}
+.alerttxt {
+    position: absolute;
+    left: 50%;
+    bottom: 20%;
+    transform: translateX(-50%);
+    background-color: color-mix(
+        in srgb,
+        var(--fontcolor) 90%,
+        var(--backgroundcolor)
+    );
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: var(--backgroundcolor);
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+.fadeIn {
+    animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    35% {
+        opacity: 1;
+    }
+    65% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

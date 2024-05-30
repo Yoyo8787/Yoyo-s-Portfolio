@@ -2,7 +2,8 @@ import React from "react";
 import Box from "../Box";
 import style from "./BoxElement.module.css";
 
-const PersonalBox = ({ setPage = () => {}, position = 0 }) => {
+const PersonalBox = ({ setPage = () => {}, position = "00" }) => {
+    console.log(position);
     const gridarea = () => {
         if (position === "00") {
             return "1 / 1 / 2 / 3";
@@ -14,11 +15,23 @@ const PersonalBox = ({ setPage = () => {}, position = 0 }) => {
             return "3 / 1 / 4 / 3";
         }
         if (position === "03") {
-            return "2 / 2 / 4 / 5";
+            return "2 / 1 / 3 / 3";
+        }
+        if (position === "00mobile") {
+            return "1 / 1 / 2 / 3";
+        }
+        if (position === "01mobile") {
+            return "1 / 1 / 2 / 3";
+        }
+        if (position === "02mobile") {
+            return "5 / 1 / 6 / 3";
+        }
+        if (position === "03mobile") {
+            return "3 / 1 / 4 / 3";
         }
     };
     const hidden = () => {
-        if (position !== "00" && position !== "01") {
+        if (!position.includes("00") && !position.includes("01")) {
             return "0.2";
         } else {
             return "1";

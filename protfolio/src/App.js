@@ -14,6 +14,8 @@ import LanguageBox from "./components/Boxes/LanguageBox";
 import ProjectBox1 from "./components/Boxes/ProjectBox1";
 import ProjectBox2 from "./components/Boxes/ProjectBox2";
 import ProjectBox3 from "./components/Boxes/ProjectBox3";
+import PhoneBox from "./components/Boxes/PhoneBox";
+import EmailBox from "./components/Boxes/EmailBox";
 
 import PersonalPage from "./components/FullPages/PersonalPage";
 import SchoolPage from "./components/FullPages/SchoolPage";
@@ -28,6 +30,7 @@ gsap.registerPlugin(Flip);
 
 function App() {
     const { isDarkMode, setIsDarkMode } = useTheme();
+    const [isCopied, setIsCopied] = useState(false);
     const [open, setOpen] = useState(false);
     const [position, setPosition] = useState("00");
 
@@ -53,6 +56,17 @@ function App() {
             icon: <TbPhone />,
         },
     ];
+
+    const handleCopyText = (textToCopy) => {
+        navigator.clipboard
+            .writeText(textToCopy)
+            .then(() => {
+                setIsCopied(true);
+            })
+            .catch((err) => {
+                console.error("Failed to copy text: ", err);
+            });
+    };
 
     return (
         <div
@@ -90,6 +104,20 @@ function App() {
                     setPage={() => setOpen(<SkillPage />)}
                     position={position}
                 />
+                <PhoneBox
+                    setPage={() => {
+                        setOpen(null);
+                        handleCopyText("0918887333");
+                    }}
+                    position={position}
+                />
+                <EmailBox
+                    setPage={() => {
+                        setOpen(null);
+                        handleCopyText("yoyo0918887333@gmail.com");
+                    }}
+                    position={position}
+                />
             </div>
             <Menu
                 items={menuitems}
@@ -104,6 +132,14 @@ function App() {
             <FullPage open={open} setOpen={setOpen}>
                 PersonalBox#FULL
             </FullPage>
+            {isCopied && (
+                <span
+                    className={`${style.alerttxt} ${style.fadeIn}`}
+                    onAnimationEnd={() => setIsCopied(false)}
+                >
+                    已複製
+                </span>
+            )}
         </div>
     );
 }

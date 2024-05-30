@@ -38,3 +38,14 @@
 .hidden {
     opacity: 0.8;
 }
+.iconbox {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+.largeicon {
+    width: 15%;
+    font-size: 2rem;
+}

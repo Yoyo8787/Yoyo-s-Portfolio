@@ -2,7 +2,7 @@ import React from "react";
 import Box from "../Box";
 import style from "./BoxElement.module.css";
 
-const SkillBox = ({ setPage, position }) => {
+const SkillBox = ({ setPage, position = "00" }) => {
     const gridarea = () => {
         if (position === "00") {
             return "2 / 1 / 3 / 2";
@@ -14,11 +14,23 @@ const SkillBox = ({ setPage, position }) => {
             return "4 / 1 / 5 / 2";
         }
         if (position === "03") {
-            return "2 / 2 / 4 / 5";
+            return "2 / 3 / 3 / 4";
+        }
+        if (position === "00mobile") {
+            return "2 / 1 / 3 / 2";
+        }
+        if (position === "01mobile") {
+            return "2 / 1 / 3 / 2";
+        }
+        if (position === "02mobile") {
+            return "6 / 2 / 7 / 3";
+        }
+        if (position === "03mobile") {
+            return "2 / 2 / 3 / 3";
         }
     };
     const hidden = () => {
-        if (position !== "00" && position !== "01") {
+        if (!position.includes("00") && !position.includes("01")) {
             return "0.2";
         } else {
             return "1";

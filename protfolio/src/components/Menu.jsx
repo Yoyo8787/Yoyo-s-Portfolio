@@ -1,28 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./Menu.module.css";
 
 const Menu = ({ propstyle, items, selectItem }) => {
     const [selectedItem, setSelectedItem] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [currSize, setCurrSize] = useState("desktop");
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+            if (currSize === "desktop" && window.innerWidth < 650) {
+                selectItem(selectedItem + "mobile");
+                setCurrSize("mobile");
+                console.log("size changed");
+            } else if (currSize === "mobile" && window.innerWidth >= 650) {
+                selectItem(selectedItem);
+                setCurrSize("desktop");
+                console.log("size changed");
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [currSize, selectedItem, selectItem]);
+
     return (
         <div className={style.menu} style={propstyle}>
-            {items.map((item, i) => {
+            {items.map((item) => {
                 return (
                     <div
                         key={item.id}
                         className={`${style.menuitem} `}
                         onClick={() => {
-                            selectItem(item.id);
-                            setSelectedItem(i);
+                            if (windowWidth < 650) {
+                                selectItem(item.id + "mobile");
+                            } else {
+                                selectItem(item.id);
+                            }
+                            setSelectedItem(item.id);
                         }}
                     >
                         {React.cloneElement(item.icon, {
                             className: `${style.menuicon} ${
-                                selectedItem === i ? style.selected : null
+                                selectedItem === item.id ? style.selected : null
                             } `,
                         })}
                         <div
                             className={`${style.menutxt} ${
-                                selectedItem === i ? style.selected : null
+                                selectedItem === item.id ? style.selected : null
                             }`}
                         >
                             {item.text}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import style from "./Menu.module.css";
 
 const Menu = ({ propstyle, items, selectItem }) => {
-    const [selectedItem, setSelectedItem] = useState(0);
+    const [selectedItem, setSelectedItem] = useState("00");
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [currSize, setCurrSize] = useState("desktop");
 
@@ -26,6 +26,16 @@ const Menu = ({ propstyle, items, selectItem }) => {
             window.removeEventListener("resize", handleResize);
         };
     }, [currSize, selectedItem, selectItem]);
+
+    useEffect(() => {
+        if (window.innerWidth < 650) {
+            selectItem("00mobile");
+        } else {
+            selectItem("00");
+        }
+
+        return () => {};
+    }, [selectItem]);
 
     return (
         <div className={style.menu} style={propstyle}>

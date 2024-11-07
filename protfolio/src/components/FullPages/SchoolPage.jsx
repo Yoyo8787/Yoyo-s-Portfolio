@@ -21,7 +21,7 @@ const SchoolPage = () => {
                 </li>
                 <li className={style.timelineevent}>
                     <label className={style.eventicon}></label>
-                    <div className={style.eventtime}>2024-至今</div>
+                    <div className={style.eventtime}>2024-預計2025/7畢業</div>
                     <div className={style.eventtitle}>國立台灣大學</div>
                     <div className={style.eventdescription}>
                         資訊管理研究所

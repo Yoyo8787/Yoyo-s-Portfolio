@@ -1,36 +1,37 @@
 import React from "react";
 import Box from "../Box";
 import style from "./BoxElement.module.css";
+import { FaGithub } from "react-icons/fa";
 
-const SkillBox = ({ setPage, position = "00" }) => {
+const GithubBox = ({ setPage, position = "00" }) => {
     const gridarea = () => {
         if (position === "00") {
-            return "2 / 1 / 3 / 2";
+            return "5 / 2 / 6 / 4";
         }
         if (position === "01") {
-            return "1 / 3 / 4 / 4";
+            return "5 / 3 / 6 / 5";
         }
         if (position === "02") {
-            return "4 / 1 / 5 / 2";
+            return "5 / 2 / 6 / 4";
         }
         if (position === "03") {
-            return "2 / 3 / 3 / 4";
+            return "2 / 1 / 3 / 3";
         }
         if (position === "00mobile") {
-            return "2 / 1 / 3 / 2";
+            return "8 / 1 / 9 / 3";
         }
         if (position === "01mobile") {
-            return "2 / 1 / 3 / 2";
+            return "9 / 1 / 10 / 3";
         }
         if (position === "02mobile") {
-            return "6 / 2 / 7 / 3";
+            return "8 / 1 / 9 / 3";
         }
         if (position === "03mobile") {
-            return "2 / 2 / 3 / 3";
+            return "1 / 1 / 2 / 3";
         }
     };
     const hidden = () => {
-        if (!position.includes("00") && !position.includes("01")) {
+        if (!position.includes("00") && !position.includes("03")) {
             return "0.2";
         } else {
             return "1";
@@ -38,19 +39,16 @@ const SkillBox = ({ setPage, position = "00" }) => {
     };
     return (
         <Box
-            boxstyle={{ aspectRatio: "1 / 1", opacity: hidden() }}
+            boxstyle={{ opacity: hidden() }}
             gridArea={gridarea()}
             onclick={() => setPage()}
         >
-            <h2>技能</h2>
-            <ul className={style.list}>
-                <li>React, Razor</li>
-                <li>Node.js, ASP.NET</li>
-                <li>SQL Server, MongoDB</li>
-                <li>GCP, AWS</li>
-            </ul>
+            <div className={style.iconbox}>
+                <FaGithub className={style.largeicon} />
+                <div style={{ fontSize: "1rem" }}>github.com/Yoyo8787</div>
+            </div>
         </Box>
     );
 };
 
-export default SkillBox;
+export default GithubBox;

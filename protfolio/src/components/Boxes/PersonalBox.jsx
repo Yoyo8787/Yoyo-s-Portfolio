@@ -15,7 +15,7 @@ const PersonalBox = ({ setPage = () => {}, position = "00" }) => {
             return "3 / 1 / 4 / 3";
         }
         if (position === "03") {
-            return "2 / 1 / 3 / 3";
+            return "5 / 3 / 6 / 5";
         }
         if (position === "00mobile") {
             return "1 / 1 / 2 / 3";

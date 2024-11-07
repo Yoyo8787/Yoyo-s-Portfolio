@@ -26,6 +26,7 @@ import Project3Page from "./components/FullPages/Project3Page";
 
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
+import GithubBox from "./components/Boxes/GithubBox";
 gsap.registerPlugin(Flip);
 
 function App() {
@@ -66,6 +67,9 @@ function App() {
             .catch((err) => {
                 console.error("Failed to copy text: ", err);
             });
+    };
+    const handleLink = (link) => {
+        window.open(link, "_blank");
     };
 
     return (
@@ -115,6 +119,13 @@ function App() {
                     setPage={() => {
                         setOpen(null);
                         handleCopyText("yoyo0918887333@gmail.com");
+                    }}
+                    position={position}
+                />
+                <GithubBox
+                    setPage={() => {
+                        setOpen(null);
+                        handleLink("https://github.com/Yoyo8787");
                     }}
                     position={position}
                 />

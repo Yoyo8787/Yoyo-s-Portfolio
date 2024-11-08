@@ -8,6 +8,7 @@ const Project1Page = () => {
     return (
         <div className={style.project}>
             <h2>專案介紹：學習診斷系統</h2>
+            <h4>三元及第文教機構</h4>
             <p>
                 這個專案旨在轉變過去測驗練習只能透過考卷書寫的方式，通過響應式網頁來為使用者打造隨時隨地都能練習的環境。
             </p>

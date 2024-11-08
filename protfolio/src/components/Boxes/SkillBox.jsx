@@ -1,53 +1,25 @@
 import React from "react";
 import Box from "../Box";
 import style from "./BoxElement.module.css";
+import { skillBoxConfig } from "../../assets/boxSetting";
 
 const SkillBox = ({ setPage, position = "00" }) => {
-    const gridarea = () => {
-        if (position === "00") {
-            return "2 / 1 / 3 / 2";
-        }
-        if (position === "01") {
-            return "1 / 3 / 4 / 4";
-        }
-        if (position === "02") {
-            return "4 / 1 / 5 / 2";
-        }
-        if (position === "03") {
-            return "2 / 3 / 3 / 4";
-        }
-        if (position === "00mobile") {
-            return "2 / 1 / 3 / 2";
-        }
-        if (position === "01mobile") {
-            return "2 / 1 / 3 / 2";
-        }
-        if (position === "02mobile") {
-            return "6 / 2 / 7 / 3";
-        }
-        if (position === "03mobile") {
-            return "2 / 2 / 3 / 3";
-        }
-    };
-    const hidden = () => {
-        if (!position.includes("00") && !position.includes("01")) {
-            return "0.2";
-        } else {
-            return "1";
-        }
-    };
+    const { gridArea, opacity } = skillBoxConfig[position] || {};
     return (
         <Box
-            boxstyle={{ aspectRatio: "1 / 1", opacity: hidden() }}
-            gridArea={gridarea()}
+            boxstyle={{ aspectRatio: "1 / 1", opacity: opacity }}
+            gridArea={gridArea}
             onclick={() => setPage()}
         >
             <h2>技能</h2>
             <ul className={style.list}>
-                <li>React, Razor</li>
+                <li>JavaScript, C#, Python</li>
+                <li>HTML, CSS, JavaScript, React, Blazor</li>
                 <li>Node.js, ASP.NET</li>
-                <li>SQL Server, MongoDB</li>
+                <li>MongoDB, SQL Server, FireStore, Redis</li>
                 <li>GCP, AWS</li>
+                <li>VSCode, Unity, Git/Github, CI/CD</li>
+                <li>scikit-learn, XGBoost, TensorFlow, PyTorch</li>
             </ul>
         </Box>
     );

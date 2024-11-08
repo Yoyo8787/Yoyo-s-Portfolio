@@ -23,10 +23,18 @@ import SkillPage from "./components/FullPages/SkillPage";
 import Project1Page from "./components/FullPages/Project1Page";
 import Project2Page from "./components/FullPages/Project2Page";
 import Project3Page from "./components/FullPages/Project3Page";
+import ProjectBox4 from "./components/Boxes/ProjectBox4";
+import Project4Page from "./components/FullPages/Project4Page";
+import ProjectBox5 from "./components/Boxes/ProjectBox5";
+import Project5Page from "./components/FullPages/Project5Page";
 
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import GithubBox from "./components/Boxes/GithubBox";
+import JobBox from "./components/Boxes/JobBox";
+import JobPage from "./components/FullPages/JobPage";
+import MurmurBox from "./components/Boxes/MurmurBox";
+
 gsap.registerPlugin(Flip);
 
 function App() {
@@ -80,6 +88,14 @@ function App() {
             <ColorButton setIsDarkMode={setIsDarkMode} />
             <DynamicRibbon />
             <div className={`${style.bentocontainer} bento-container`}>
+                <ProjectBox5
+                    setPage={() => setOpen(<Project5Page />)}
+                    position={position}
+                />
+                <ProjectBox4
+                    setPage={() => setOpen(<Project4Page />)}
+                    position={position}
+                />
                 <ProjectBox3
                     setPage={() => setOpen(<Project3Page />)}
                     position={position}
@@ -126,6 +142,18 @@ function App() {
                     setPage={() => {
                         setOpen(null);
                         handleLink("https://github.com/Yoyo8787");
+                    }}
+                    position={position}
+                />
+                <JobBox
+                    setPage={() => {
+                        setOpen(<JobPage />);
+                    }}
+                    position={position}
+                />
+                <MurmurBox
+                    setPage={() => {
+                        setOpen(null);
                     }}
                     position={position}
                 />

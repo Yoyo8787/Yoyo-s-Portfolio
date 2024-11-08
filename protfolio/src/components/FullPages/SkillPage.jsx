@@ -9,7 +9,9 @@ const SkillPage = () => {
                 <div className={style.block}>
                     <div className={style.blocktytle}>程式語言</div>
                     <ul className={style.blockcontent}>
-                        <li className={style.blockitem}>JavaScript</li>
+                        <li className={style.blockitem}>
+                            JavaScript (TypeScript)
+                        </li>
                         <li className={style.blockitem}>C#</li>
                         <li className={style.blockitem}>Python</li>
                     </ul>
@@ -66,6 +68,7 @@ const SkillPage = () => {
                         <li className={style.blockitem}>
                             CI/CD (Github Action)
                         </li>
+                        <li className={style.blockitem}>Docker, Kubernetes</li>
                     </ul>
                 </div>
                 <div className={style.block}>

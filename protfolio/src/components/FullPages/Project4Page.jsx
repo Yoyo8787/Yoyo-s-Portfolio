@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./PageElement.module.css";
-import pic1 from "../../assets/project1demo1.PNG";
+import pic1 from "../../assets/project4demo1.PNG";
 
 const Project4Page = () => {
     return (
@@ -8,7 +8,7 @@ const Project4Page = () => {
             <h2>專案介紹：出貨單 CRUD 平台</h2>
             <h4>三元及第文教機構</h4>
             <p>
-                此專案是一個快速開發的出貨單管理系統，讓使用者能輕鬆進行出貨單的新增、刪除、修改和查詢（CRUD）。該平台適合中小型企業進行出貨單管理，提升了效率並減少了手動處理的錯誤。
+                此專案是一個緊急需求需要兩天內開發的出貨單管理系統，讓使用者能輕鬆進行出貨單的新增、刪除、修改和查詢（CRUD）。該平台適合中小型企業進行出貨單管理，提升了效率並減少了手動處理的錯誤。
             </p>
 
             <h3 className={style.title}>技術和工具</h3>
@@ -21,6 +21,14 @@ const Project4Page = () => {
 
             <h3 className={style.title}>主要功能</h3>
             <ul>
+                <li className={style.func} style={{ maxWidth: "90%" }}>
+                    <img
+                        className={style.gif1}
+                        style={{ width: "100%" }}
+                        src={pic1}
+                        alt="出貨單管理示例"
+                    />
+                </li>
                 <li className={style.func}>
                     <div>
                         <b>出貨單管理：</b>
@@ -29,11 +37,6 @@ const Project4Page = () => {
                             操作，讓使用者可以方便地新增、更新和刪除出貨單，並且查詢歷史出貨記錄。
                         </div>
                     </div>
-                    <img
-                        className={style.gif1}
-                        src={pic1}
-                        alt="出貨單管理示例"
-                    />
                 </li>
                 <li className={style.func}>
                     <div>

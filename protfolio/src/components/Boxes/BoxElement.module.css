@@ -49,3 +49,30 @@
     width: 15%;
     font-size: 2rem;
 }
+
+.iconContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem; /* 控制圖標之間的間距 */
+    margin-top: 1rem; /* 確保 h2 和圖標之間有適當距離 */
+    height: calc(100% - 2rem); /* 確保圖標區域的高度 */
+    width: 100%;
+}
+.floatIcon {
+    width: 15%;
+    font-size: 2rem;
+    animation: float 3s infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-0.3rem);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}

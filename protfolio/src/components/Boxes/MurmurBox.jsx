@@ -14,7 +14,7 @@ const MurmurBox = ({ setPage, position = "00" }) => {
         >
             <div className={style.iconbox}>
                 <IoChatboxEllipses className={style.largeicon} />
-                <div>不想當兵...</div>
+                <div>好想泡溫泉~</div>
             </div>
         </Box>
     );

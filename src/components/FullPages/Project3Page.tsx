@@ -1,18 +1,17 @@
 import React from "react";
-import style from "./PageElement.module.css";
 import gif1 from "../../assets/project3demo1.png";
 import pic2 from "../../assets/project3demo2.png";
 
 const Project3Page = () => {
     return (
-        <div className={style.project}>
+        <div className="w-[35rem] max-w-[80vw] [&>h4]:mb-3 [&>p]:mt-1">
             <h2>專案介紹：木質構造建築暨結構查詢資料庫</h2>
             <h4>台灣大學森林環境暨資源學系</h4>
             <p>
                 這個計畫致力於創建全球首個專注於木構造建築的綜合資料庫，旨在為工程師提供一個便捷的查詢平台，以便於他們查閱和應用相關數據，進而推廣和擴展木材建築的使用。這項創新性的資源庫意在促進永續建築實踐，並引領木材建築的全球趨勢。
             </p>
 
-            <h3 className={style.title}>技術和工具</h3>
+            <h3 className="mt-6">技術和工具</h3>
             <p>
                 在這個專案中，我選擇使用 React 結合 Bootstrap
                 進行前端開發。這樣的技術組合使我們能夠利用 React 的組件化特性和
@@ -22,9 +21,9 @@ const Project3Page = () => {
                 提供的免費方案不僅減輕了專案的財務壓力，還因其簡便的設置和管理、實時數據處理能力以及優秀的擴展性，而成為學術和小型專案的理想選擇。
             </p>
 
-            <h3 className={style.title}>主要功能</h3>
+            <h3 className="mt-6">主要功能</h3>
             <ul>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>查詢功能: </b>
                         <div>
@@ -32,9 +31,9 @@ const Project3Page = () => {
                         </div>
                     </div>
 
-                    <img className={style.gif1} src={gif1} alt="" />
+                    <img src={gif1} alt="" />
                 </li>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>新增功能: </b>
                         <div>
@@ -42,11 +41,11 @@ const Project3Page = () => {
                         </div>
                     </div>
 
-                    <img src={pic2} className={style.gif1} alt="" />
+                    <img src={pic2} alt="" />
                 </li>
             </ul>
 
-            <h3 className={style.title}>個人貢獻</h3>
+            <h3 className="mt-6">個人貢獻</h3>
             <p>
                 在此專案中，我的主要責任是與委託人——老師進行密切溝通，從而精確地理解和釐清項目需求。我負責整體的設計與架構規劃，並在有限的預算範圍內創造性地尋找並實施最適合的解決方案。此外，我也親自參與了程式碼的撰寫和網頁的部署工作，確保從概念到實際運行的每一步都符合項目目標和質量標準。
             </p>

@@ -1,7 +1,6 @@
 import type { CardProps } from "../../types";
 import React from "react";
 import Box from "../Box";
-import style from "./BoxElement.module.css";
 import { FaPhoneAlt } from "react-icons/fa";
 import { phoneBoxConfig } from "../../assets/boxSetting";
 
@@ -13,8 +12,8 @@ const PhoneBox = ({ setPage, position = "00" }: CardProps) => {
             gridArea={gridArea}
             onclick={() => setPage()}
         >
-            <div className={style.iconbox}>
-                <FaPhoneAlt className={style.largeicon} />
+            <div className="h-full flex justify-center items-center gap-2">
+                <FaPhoneAlt className="w-[15%] text-[2rem]" />
                 <div>0918887333</div>
             </div>
         </Box>

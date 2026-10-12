@@ -5,7 +5,6 @@ import ColorButton from "./components/ColorButton";
 import Menu from "./components/Menu";
 import FullPage from "./components/FullPage";
 import DynamicRibbon from "./components/Ribbon";
-import style from "./App.module.css";
 import { TbHome, TbUser, TbPresentation, TbPhone } from "react-icons/tb";
 
 import PersonalBox from "./components/Boxes/PersonalBox";
@@ -83,12 +82,12 @@ function App() {
 
     return (
         <div
-            className={`${style.main} App`}
+            className="App w-screen h-screen max-w-[100dvw] max-h-[100dvh] overflow-x-hidden overflow-y-auto bg-background"
             theme={isDarkMode ? "dark" : "light"}
         >
             <ColorButton setIsDarkMode={setIsDarkMode} />
             <DynamicRibbon />
-            <div className={`${style.bentocontainer} bento-container`}>
+            <div className="relative left-1/2 mt-8 grid w-[clamp(10rem,84vw,50rem)] grid-cols-4 auto-rows-[clamp(1.75rem,calc(21vw_-_0.75rem),11.75rem)] gap-4 pb-24 [transform:translateX(-50%)] mobile:grid-cols-2 mobile:auto-rows-[clamp(4.5rem,calc(42vw_-_0.5rem),24.5rem)] before:content-[''] before:w-0 before:pb-[100%] before:row-start-1 before:row-end-1 before:col-start-1 before:col-end-1 before:aspect-square bento-container">
                 <ProjectBox5
                     setPage={() => setOpen(<Project5Page />)}
                     position={position}
@@ -174,7 +173,7 @@ function App() {
             </FullPage>
             {isCopied && (
                 <span
-                    className={`${style.alerttxt} ${style.fadeIn}`}
+                    className="absolute left-1/2 bottom-[20%] [transform:translateX(-50%)] bg-[color-mix(in_srgb,var(--fontcolor)_90%,var(--backgroundcolor))] px-4 py-2 rounded-lg text-background animate-copy"
                     onAnimationEnd={() => setIsCopied(false)}
                 >
                     已複製

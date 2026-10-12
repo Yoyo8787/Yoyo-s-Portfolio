@@ -1,19 +1,18 @@
 import React from "react";
-import style from "./PageElement.module.css";
 import gif1 from "../../assets/project2demo1.gif";
 import pic2 from "../../assets/project2demo2.png";
 import pic3 from "../../assets/project2demo3.png";
 
 const Project2Page = () => {
     return (
-        <div className={style.project}>
+        <div className="w-[35rem] max-w-[80vw] [&>h4]:mb-3 [&>p]:mt-1">
             <h2>專案介紹：線上測驗系統</h2>
             <h4>三元及第文教機構</h4>
             <p>
                 這個專案旨在解決過去測驗只能實體進行困境，通過網頁的呈現來提供使用者更加方便參與測驗練習的方式。
             </p>
 
-            <h3 className={style.title}>技術和工具</h3>
+            <h3 className="mt-6">技術和工具</h3>
             <p>
                 此專案採用 <b>MERN stack</b> (MongoDB, Express.js, React,
                 Node.js) 主要是因為它的全棧 JavaScript
@@ -22,9 +21,9 @@ const Project2Page = () => {
                 則讓前端界面動態和響應式更新更為便捷。這種技術組合有效地加快了開發速度並提高了專案的開發效率。
             </p>
 
-            <h3 className={style.title}>主要功能</h3>
+            <h3 className="mt-6">主要功能</h3>
             <ul>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>每日練習規劃：</b>
                         <div>
@@ -32,9 +31,9 @@ const Project2Page = () => {
                         </div>
                     </div>
 
-                    <img className={style.gif1} src={gif1} alt="" />
+                    <img src={gif1} alt="" />
                 </li>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>模擬考試環境：</b>
                         <div>
@@ -42,9 +41,9 @@ const Project2Page = () => {
                         </div>
                     </div>
 
-                    <img src={pic2} className={style.gif1} alt="" />
+                    <img src={pic2} alt="" />
                 </li>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>成績競爭激勵：</b>
                         <div>
@@ -52,11 +51,11 @@ const Project2Page = () => {
                         </div>
                     </div>
 
-                    <img src={pic3} className={style.gif1} alt="" />
+                    <img src={pic3} alt="" />
                 </li>
             </ul>
 
-            <h3 className={style.title}>個人貢獻</h3>
+            <h3 className="mt-6">個人貢獻</h3>
             <p>
                 在此專案中，我負責整體規劃、用戶諮詢、界面設計、程式開發和部署。這段經歷加深了我在全棧開發和用戶體驗設計方面的專業技能，並在項目管理領域取得顯著進步
             </p>

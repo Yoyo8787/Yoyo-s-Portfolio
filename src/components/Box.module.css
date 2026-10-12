@@ -1,9 +1,0 @@
-.box {
-    border: 1px solid var(--primarycolor);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    overflow: hidden;
-    color: var(--fontcolor);
-    background-color: var(--backgroundcolor);
-}

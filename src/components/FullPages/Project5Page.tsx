@@ -1,9 +1,8 @@
 import React from "react";
-import style from "./PageElement.module.css";
 
 const Project5Page = () => {
     return (
-        <div className={style.project}>
+        <div className="w-[35rem] max-w-[80vw] [&>h4]:mb-3 [&>p]:mt-1">
             <h2>專案介紹：聊天機器人配置編輯器</h2>
             <h4>DeepQ</h4>
             <p>
@@ -11,7 +10,7 @@ const Project5Page = () => {
                 這個平台是為了解決系統配置的頻繁更新需求，實現無需代碼更改即可快速更新配置，提升了系統的靈活性和可維護性。
             </p>
 
-            <h3 className={style.title}>技術和工具</h3>
+            <h3 className="mt-6">技術和工具</h3>
             <p>
                 此專案使用 React 作為前端框架，並使用 Fastify
                 作為後端框架。數據儲存在 Google FireStore 中，並使用 Redis
@@ -19,9 +18,9 @@ const Project5Page = () => {
                 上，提供穩定和可擴展的雲端環境。
             </p>
 
-            <h3 className={style.title}>主要功能</h3>
+            <h3 className="mt-6">主要功能</h3>
             <ul>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>配置管理：</b>
                         <div>
@@ -29,7 +28,7 @@ const Project5Page = () => {
                         </div>
                     </div>
                 </li>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>高效數據讀取：</b>
                         <div>
@@ -41,7 +40,7 @@ const Project5Page = () => {
                 </li>
             </ul>
 
-            <h3 className={style.title}>個人貢獻</h3>
+            <h3 className="mt-6">個人貢獻</h3>
             <p>
                 在此專案中，我主導了前後端的整合，並負責了整體系統架構設計、快取和資料庫的設置。
                 由於該專案是內部使用，因此我進行了用戶需求訪談，並根據他們的實際需求調整了系統功能，並且同時為了配合主要服務的聊天機器人做了緩存等不同程度的調整。

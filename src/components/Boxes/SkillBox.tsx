@@ -1,7 +1,6 @@
 import type { CardProps } from "../../types";
 import React from "react";
 import Box from "../Box";
-import style from "./BoxElement.module.css";
 import { skillBoxConfig } from "../../assets/boxSetting";
 import {
     FaNodeJs,
@@ -70,11 +69,11 @@ const SkillBox = ({ setPage, position = "00" }: CardProps) => {
             onclick={() => setPage()}
         >
             <h2>技能</h2>
-            <div className={style.iconContainer}>
+            <div className="flex flex-wrap justify-center gap-2 mt-4 h-[calc(100%_-_2rem)] w-full">
                 {icons.map((Icon, index) => (
                     <Icon
                         key={index}
-                        className={style.floatIcon}
+                        className="w-[15%] text-[2rem] animate-float"
                         style={{ animationDelay: `${index * 0.1}s` }}
                     />
                 ))}

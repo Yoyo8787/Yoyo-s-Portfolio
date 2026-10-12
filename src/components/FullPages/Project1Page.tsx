@@ -1,19 +1,18 @@
 import React from "react";
-import style from "./PageElement.module.css";
 import pic1 from "../../assets/project1demo1.png";
 import pic2 from "../../assets/project1demo2.gif";
 import pic3 from "../../assets/project1demo3.png";
 
 const Project1Page = () => {
     return (
-        <div className={style.project}>
+        <div className="w-[35rem] max-w-[80vw] [&>h4]:mb-3 [&>p]:mt-1">
             <h2>專案介紹：學習診斷系統</h2>
             <h4>三元及第文教機構</h4>
             <p>
                 這個專案旨在轉變過去測驗練習只能透過考卷書寫的方式，通過響應式網頁來為使用者打造隨時隨地都能練習的環境。
             </p>
 
-            <h3 className={style.title}>技術和工具</h3>
+            <h3 className="mt-6">技術和工具</h3>
             <p>
                 在這個專案中，我選擇使用 MongoDB, Express.js 和 Node.js
                 來構建後端，而前端則是採用純 HTML 結合
@@ -22,9 +21,9 @@ const Project1Page = () => {
                 不僅可以保持開發的輕量化和靈活性，還可以快速實現界面的開發和部署。避免引入過於複雜的框架來簡化了開發流程，加快了載入速度，並使維護成本更低。
             </p>
 
-            <h3 className={style.title}>主要功能</h3>
+            <h3 className="mt-6">主要功能</h3>
             <ul>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>學習診斷報告：</b>
                         <div>
@@ -32,9 +31,9 @@ const Project1Page = () => {
                         </div>
                     </div>
 
-                    <img className={style.gif1} src={pic1} alt="" />
+                    <img src={pic1} alt="" />
                 </li>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>複習備忘：</b>
                         <div>
@@ -42,9 +41,9 @@ const Project1Page = () => {
                         </div>
                     </div>
 
-                    <img src={pic2} className={style.gif1} alt="" />
+                    <img src={pic2} alt="" />
                 </li>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>分科測驗：</b>
                         <div>
@@ -52,11 +51,11 @@ const Project1Page = () => {
                         </div>
                     </div>
 
-                    <img src={pic3} className={style.gif1} alt="" />
+                    <img src={pic3} alt="" />
                 </li>
             </ul>
 
-            <h3 className={style.title}>個人貢獻</h3>
+            <h3 className="mt-6">個人貢獻</h3>
             <p>
                 此項目中，我主導了從構想到實現的全過程。這包括項目的初步規劃、用戶界面設計、後端及前端開發，以及最終的部署和用戶支持。我與用戶進行了深入的交流，以確保我們的解決方案完全符合他們的需求和期望。這一系列工作不僅提升了我的跨領域技術技能，也加深了我對用戶中心設計思維的理解。
             </p>

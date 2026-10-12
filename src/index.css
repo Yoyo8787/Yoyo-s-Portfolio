@@ -1,64 +1,110 @@
-* {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-html {
-    font-size: 20px;
-}
-@media (max-width: 1000px) {
-    html {
-        font-size: 16px;
-    }
-}
-@media (max-width: 800px) {
-    html {
-        font-size: 12px;
-    }
-}
-body {
-    margin: 0;
-    font-family: "Jockey one", "Microsoft JhengHei", "PingFang", -apple-system,
-        BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-        "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.App {
-    width: 100vw;
-    height: 100vh;
-    max-width: 100dvw;
-    max-height: 100dvh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: var(--backgroundcolor);
-}
-.App[theme="dark"] {
-    --accentcolor: #f4a7b9;
-    --primarycolor: #f4a7b9;
-    --secondarycolor: #d9ab42;
-    --backgroundcolor: #1c1c1c;
-    --fontcolor: #fedfe1;
-}
-.App[theme="light"] {
-    --accentcolor: #ffffff;
-    --primarycolor: #0d5661;
-    --secondarycolor: #e8b647;
-    --backgroundcolor: #d8e0e1;
-    --fontcolor: #050003;
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* 沿用既有的含邊界斷點，避免遷移時改變版面。 */
+@custom-variant compact (@media (width <= 1000px));
+@custom-variant tablet (@media (width <= 800px));
+@custom-variant mobile (@media (width <= 650px));
+@custom-variant narrow (@media (width <= 500px));
+@custom-variant dark (&:where([theme="dark"], [theme="dark"] *));
+
+@theme inline {
+    --color-accent: var(--accentcolor);
+    --color-primary: var(--primarycolor);
+    --color-secondary: var(--secondarycolor);
+    --color-background: var(--backgroundcolor);
+    --color-foreground: var(--fontcolor);
 }
 
-::-webkit-scrollbar {
-    height: 0.5rem;
-    width: 0.5rem;
-    background-color: transparent;
+@theme {
+    --animate-copy: copy-fade 2s forwards;
+    --animate-overlay: overlay-fade 0.5s ease;
+    --animate-modal: modal-open 2s forwards;
+    --animate-float: float 3s infinite;
+
+    @keyframes copy-fade {
+        0%, 100% {
+            opacity: 0;
+        }
+        35%, 65% {
+            opacity: 1;
+        }
+    }
+    @keyframes overlay-fade {
+        0% {
+            opacity: 0;
+        }
+        90% {
+            opacity: 1;
+        }
+    }
+    @keyframes modal-open {
+        0%, 30% {
+            transform: scale(0);
+        }
+        60% {
+            transform: scale(1.1);
+        }
+        80%, 100% {
+            transform: scale(1);
+        }
+    }
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-0.3rem);
+        }
+    }
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: color-mix(
-        in srgb,
-        var(--secondarycolor) 80%,
-        transparent
-    );
-    border-radius: 10px;
+/* 不載入 Preflight，保留原有標題、清單與圖片的瀏覽器預設樣式。 */
+@layer base {
+    * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+    html {
+        @apply text-[20px] compact:text-[16px] tablet:text-[12px];
+    }
+    body {
+        margin: 0;
+        font-family: "Jockey one", "Microsoft JhengHei", "PingFang", -apple-system,
+            BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+            "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .App[theme="dark"] {
+        --accentcolor: #f4a7b9;
+        --primarycolor: #f4a7b9;
+        --secondarycolor: #d9ab42;
+        --backgroundcolor: #1c1c1c;
+        --fontcolor: #fedfe1;
+    }
+    .App[theme="light"] {
+        --accentcolor: #ffffff;
+        --primarycolor: #0d5661;
+        --secondarycolor: #e8b647;
+        --backgroundcolor: #d8e0e1;
+        --fontcolor: #050003;
+    }
+
+    ::-webkit-scrollbar {
+        height: 0.5rem;
+        width: 0.5rem;
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: color-mix(
+            in srgb,
+            var(--secondarycolor) 80%,
+            transparent
+        );
+        border-radius: 10px;
+    }
 }

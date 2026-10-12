@@ -1,14 +1,13 @@
 import React from "react";
 import img from "../../assets/person.jpg";
-import style from "./PageElement.module.css";
 
 const PersonalPage = () => {
     return (
-        <div className={style.personalgrid}>
-            <img className={style.personalimg} src={img} alt="" />
-            <div className={style.personaltxt}>
+        <div className="grid grid-cols-2 grid-rows-2 mobile:flex mobile:flex-col">
+            <img className="[grid-area:1/2/3/3] w-[20rem] rounded-sm justify-self-end mobile:w-[60vw]" src={img} alt="" />
+            <div className="[grid-area:1/1/3/2] w-[18rem] mobile:w-[60vw] mobile:mt-8">
                 <h2>簡介</h2>
-                <div className={style.m_top}>
+                <div className="mt-4">
                     我是<b>徐天祐</b>
                     ，來自台灣大學資訊管理研究所人機互動實驗室，目前就讀碩士二年級。
                     我的興趣和專長主要在網頁全端開發，尤其擅長前端設計與編程，實驗室研究主題也圍繞前端設計與使用者互動模式，使我能夠從使用者的角度出發提供更直觀、易用的產品和服務。

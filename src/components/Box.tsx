@@ -1,6 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
 import React, { useEffect, useRef, useState } from "react";
-import style from "./Box.module.css";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 
@@ -64,7 +63,7 @@ const Box = ({ children, boxstyle = {}, gridArea, onclick = () => {} }: BoxProps
                 setKey((prevKey) => prevKey + 1);
             }}
             ref={boxRef}
-            className={`${style.box} `}
+            className="border border-solid border-primary p-4 rounded-lg cursor-pointer overflow-hidden text-foreground bg-background"
         >
             {children}
         </div>

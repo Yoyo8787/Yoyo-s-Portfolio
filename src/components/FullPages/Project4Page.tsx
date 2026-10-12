@@ -1,17 +1,16 @@
 import React from "react";
-import style from "./PageElement.module.css";
 import pic1 from "../../assets/project4demo1.png";
 
 const Project4Page = () => {
     return (
-        <div className={style.project}>
+        <div className="w-[35rem] max-w-[80vw] [&>h4]:mb-3 [&>p]:mt-1">
             <h2>專案介紹：出貨單 CRUD 平台</h2>
             <h4>三元及第文教機構</h4>
             <p>
                 此專案是一個緊急需求需要兩天內開發的出貨單管理系統，讓使用者能輕鬆進行出貨單的新增、刪除、修改和查詢（CRUD）。該平台適合中小型企業進行出貨單管理，提升了效率並減少了手動處理的錯誤。
             </p>
 
-            <h3 className={style.title}>技術和工具</h3>
+            <h3 className="mt-6">技術和工具</h3>
             <p>
                 使用 .NET WebForm 技術構建後端，採用 SQL Server
                 進行數據儲存。選擇這種技術是因為 WebForm
@@ -19,17 +18,16 @@ const Project4Page = () => {
                 Server 作為後端數據庫，能夠保證數據的完整性和快速查詢。
             </p>
 
-            <h3 className={style.title}>主要功能</h3>
+            <h3 className="mt-6">主要功能</h3>
             <ul>
-                <li className={style.func} style={{ maxWidth: "90%" }}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg" style={{ maxWidth: "90%" }}>
                     <img
-                        className={style.gif1}
                         style={{ width: "100%" }}
                         src={pic1}
                         alt="出貨單管理示例"
                     />
                 </li>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>出貨單管理：</b>
                         <div>
@@ -38,7 +36,7 @@ const Project4Page = () => {
                         </div>
                     </div>
                 </li>
-                <li className={style.func}>
+                <li className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg">
                     <div>
                         <b>資料驗證：</b>
                         <div>
@@ -48,7 +46,7 @@ const Project4Page = () => {
                 </li>
             </ul>
 
-            <h3 className={style.title}>個人貢獻</h3>
+            <h3 className="mt-6">個人貢獻</h3>
             <p>
                 在此專案中，我負責了整體系統的設計和開發，包括後端架構的搭建、數據庫設計和
                 WebForm

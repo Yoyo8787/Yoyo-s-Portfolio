@@ -1,6 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
 import React, { useEffect } from "react";
-import style from "./ColorButton.module.css";
 
 const ColorButton = ({ setIsDarkMode }: { setIsDarkMode: Dispatch<SetStateAction<boolean>> }) => {
     useEffect(() => {
@@ -16,7 +15,7 @@ const ColorButton = ({ setIsDarkMode }: { setIsDarkMode: Dispatch<SetStateAction
     };
 
     return (
-        <div className={style.colormode_button} onClick={toggleDarkMode}>
+        <div className="fixed top-4 right-4 w-8 h-8 p-1 bg-cover rounded-sm border-2 border-solid border-primary bg-background z-[99] cursor-pointer [&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-foreground!" onClick={toggleDarkMode}>
             <svg
                 fill="#000000"
                 height="800px"

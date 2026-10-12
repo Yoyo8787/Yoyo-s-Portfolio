@@ -1,7 +1,6 @@
 import type { CardProps } from "../../types";
 import React from "react";
 import Box from "../Box";
-import style from "./BoxElement.module.css";
 import pic from "../../assets/project4_main.png";
 import { projectBox4Config } from "../../assets/boxSetting";
 
@@ -15,7 +14,7 @@ const ProjectBox4 = ({ setPage, position = "00" }: CardProps) => {
         >
             <h2>實務經驗</h2>
             <h3>出貨單 CRUD 平台</h3>
-            <img src={pic} alt="" className={style.pic2} />
+            <img src={pic} alt="" className="[transform:rotate(-20deg)] w-[30rem] relative -top-4 left-4 rounded-sm" />
         </Box>
     );
 };

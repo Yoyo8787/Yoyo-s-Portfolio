@@ -133,3 +133,6 @@ dist
 /.pnp
 /build
 .DS_Store
+
+# 本機專案文件
+/doc/

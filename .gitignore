@@ -128,3 +128,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# 前端專案產出與工具檔案
+/.pnp
+/build
+.DS_Store

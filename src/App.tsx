@@ -1,8 +1,9 @@
 import type { CardAction, MenuId, MenuItem, Position } from "./types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "./hooks/useTheme";
 import { useMobileLayout } from "./hooks/useMobileLayout";
 import { cards } from "./data/cards";
+import { menuHashes } from "./constants/menu";
 import ColorButton from "./components/ColorButton";
 import Menu from "./components/Menu";
 import FullPage from "./components/FullPage";
@@ -10,13 +11,28 @@ import PageContent from "./components/PageContent";
 import DynamicRibbon from "./components/Ribbon";
 import { TbHome, TbUser, TbPresentation, TbPhone } from "react-icons/tb";
 
+const getMenuFromHash = (): MenuId =>
+    (Object.keys(menuHashes) as MenuId[]).find(
+        (id) => menuHashes[id] === window.location.hash,
+    ) ?? "00";
+
 function App() {
+    const appRef = useRef<HTMLDivElement>(null);
     const { isDarkMode, toggleTheme } = useTheme();
     const [isCopied, setIsCopied] = useState(false);
     const [contentId, setContentId] = useState<string | null>(null);
-    const [selectedItem, setSelectedItem] = useState<MenuId>("00");
+    const [selectedItem, setSelectedItem] = useState<MenuId>(getMenuFromHash);
     const isMobile = useMobileLayout();
     const position: Position = isMobile ? `${selectedItem}mobile` : selectedItem;
+
+    useEffect(() => {
+        const handleHashChange = () => {
+            setSelectedItem(getMenuFromHash());
+            appRef.current?.scrollTo({ top: 0 });
+        };
+        window.addEventListener("hashchange", handleHashChange);
+        return () => window.removeEventListener("hashchange", handleHashChange);
+    }, []);
 
     const menuitems: MenuItem[] = [
         {
@@ -67,6 +83,7 @@ function App() {
 
     return (
         <div
+            ref={appRef}
             className="App w-screen h-screen max-w-dvw max-h-dvh overflow-x-hidden overflow-y-auto bg-background"
             theme={isDarkMode ? "dark" : "light"}
         >
@@ -83,7 +100,11 @@ function App() {
             <Menu
                 items={menuitems}
                 selectedItem={selectedItem}
-                selectItem={setSelectedItem}
+                selectItem={(id) => {
+                    window.location.hash = menuHashes[id];
+                    setSelectedItem(id);
+                    appRef.current?.scrollTo({ top: 0 });
+                }}
                 propstyle={{
                     position: "fixed",
                     bottom: "2rem",

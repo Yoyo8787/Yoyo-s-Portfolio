@@ -1,9 +1,9 @@
 import type { TimelineEntry } from "../types";
 
 export const jobs: TimelineEntry[] = [
-    { period: "2021-2022", organization: "台北市補教協會", details: ["連鎖安親班課程負責人"], summary: "台北市補教協會" },
     { period: "2020-2024", organization: "三元及第文教機構", details: ["資訊部實習"], summary: "三元及第文教機構" },
     { period: "2024-2024", organization: "DeepQ 奧啓迪科技股份有限公司", details: ["研發部門實習"], summary: "DeepQ 奧啓迪" },
+    { period: "2025-Now", organization: "Perfect Corp", details: ["前端工程師"], summary: "Perfect Corp" },
 ];
 
 export const schools: TimelineEntry[] = [

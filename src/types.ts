@@ -45,6 +45,10 @@ export interface Project {
     cardTitle: string[];
     organization: string;
     cover?: string;
+    coverAlt?: string;
+    summary?: string;
+    tags?: string[];
+    featuresHeading?: string;
     introduction: TextPart[];
     technology: TextPart[];
     features: ProjectFeature[];

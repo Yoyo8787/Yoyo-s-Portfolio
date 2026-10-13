@@ -1,0 +1,32 @@
+import { projects } from "../../../constants/projects";
+import type { CardProps } from "../../../types";
+import Layout from "../Layout";
+
+const ProjectShowcase = ({ projectId, ...props }: CardProps & { projectId: string }) => {
+    const project = projects[projectId];
+    const isOnlineExam = projectId === "project2";
+    const compact = !project.cover || isOnlineExam;
+
+    return (
+        <Layout {...props}>
+            <div className={`relative h-full flex flex-col ${compact ? "gap-2" : "gap-3"}`}>
+                <p className={`${compact ? "text-[0.65rem]" : "text-sm"} ${isOnlineExam ? "max-w-[40%]" : ""} text-primary`}>{project.organization}</p>
+                <h3 className={`${compact ? "text-[0.85rem] leading-snug" : "max-w-[60%]"} ${isOnlineExam ? "max-w-[40%]" : ""}`}>{project.cardTitle.join(" · ")}</h3>
+                {project.cover && !compact && (
+                    <p className="text-sm leading-relaxed max-w-[60%]">{project.summary}</p>
+                )}
+                <ul className={`relative z-10 flex flex-wrap gap-1 list-none mt-auto ${isOnlineExam ? "max-w-[40%]" : ""}`}>
+                    {project.tags?.map((tag) => (
+                        <li key={tag} className={`${compact ? "text-[0.6rem]" : "text-xs"} border border-solid border-primary rounded-full px-2 py-1 bg-background`}>{tag}</li>
+                    ))}
+                </ul>
+                {project.cover && (
+                    <img src={project.cover} alt={project.coverAlt ?? project.title}
+                        className={`absolute right-0 top-0 ${isOnlineExam ? "w-[60%]" : "w-[40%]"} h-full object-contain`} />
+                )}
+            </div>
+        </Layout>
+    );
+};
+
+export default ProjectShowcase;

@@ -12,6 +12,7 @@ import {
     RiReactjsFill,
     RiTailwindCssFill,
     RiFirebaseFill,
+    RiOpenaiFill,
 } from "react-icons/ri";
 import {
     SiNextdotjs,
@@ -21,6 +22,8 @@ import {
     SiKubernetes,
     SiTensorflow,
     SiJupyter,
+    SiClaude,
+    SiModelcontextprotocol,
 } from "react-icons/si";
 import { IoLogoCss3, IoLogoHtml5 } from "react-icons/io";
 import { DiJavascript, DiRedis, DiMsqlServer } from "react-icons/di";
@@ -30,6 +33,7 @@ import { VscVscode } from "react-icons/vsc";
 
 
 export const skillGroups: SkillGroup[] = [
+    { title: "AI 開發工具", items: ["Codex", "Claude", "多項 MCP 整合"] },
     { title: "程式語言", items: ["JavaScript (TypeScript)", "C#", "Python"] },
     { title: "前端", items: ["HTML, CSS, JavaScript", "React (Next.js)", "Blazor (Razor)", "Tailwind, Bootstrap", "RWD, Figma"] },
     { title: "後端", items: ["Node.js (Express, Fastify)", "ASP.NET (WebForm, Blazor)"] },
@@ -40,14 +44,15 @@ export const skillGroups: SkillGroup[] = [
 ];
 
 export const skillIcons: IconType[] = [
+        RiOpenaiFill,
+        SiClaude,
+        SiModelcontextprotocol,
         IoLogoHtml5,
         IoLogoCss3,
         DiJavascript,
         RiReactjsFill,
         SiNextdotjs,
         RiTailwindCssFill,
-        FaBootstrap,
-        FaNodeJs,
         TbBrandCSharp,
         SiBlazor,
         SiMongodb,
@@ -57,7 +62,6 @@ export const skillIcons: IconType[] = [
         FaPython,
         SiTsnode,
         SiTensorflow,
-        SiJupyter,
         FaGithub,
         FaDocker,
         SiKubernetes,

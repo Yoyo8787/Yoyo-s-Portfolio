@@ -1,20 +1,20 @@
+import { projects } from "../../data/projects";
 import type { CardProps } from "../../types";
 import React from "react";
 import Box from "../Box";
-import pic from "../../assets/project1_main2.png";
-import { projectBox1Config } from "../../assets/boxSetting";
 
-const ProjectBox1 = ({ setPage, position = "00" }: CardProps) => {
-    const { gridArea, opacity } = projectBox1Config[position];
+const ProjectBox1 = ({ setPage, layout, disabled }: CardProps) => {
+    const { gridArea, opacity } = layout;
     return (
         <Box
             boxstyle={{ opacity: opacity }}
             gridArea={gridArea}
+            disabled={disabled}
             onclick={() => setPage()}
         >
             <h2>實務經驗</h2>
-            <h3>學習診斷系統</h3>
-            <img src={pic} alt="" className="[transform:rotate(-25deg)] w-[12rem] relative top-4 left-12 rounded-sm" />
+            <h3>{projects.project1.cardTitle[0]}</h3>
+            <img src={projects.project1.cover} alt="" className="[transform:rotate(-25deg)] w-[12rem] relative top-4 left-12 rounded-sm" />
         </Box>
     );
 };

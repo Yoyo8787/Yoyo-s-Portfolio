@@ -2,14 +2,14 @@ import type { CardProps } from "../../types";
 import React from "react";
 import Box from "../Box";
 import { IoChatboxEllipses } from "react-icons/io5";
-import { murmurBoxConfig } from "../../assets/boxSetting";
 
-const MurmurBox = ({ setPage, position = "00" }: CardProps) => {
-    const { gridArea, opacity } = murmurBoxConfig[position];
+const MurmurBox = ({ setPage, layout, disabled }: CardProps) => {
+    const { gridArea, opacity } = layout;
     return (
         <Box
             boxstyle={{ aspectRatio: "1 / 1", opacity: opacity }}
             gridArea={gridArea}
+            disabled={disabled}
             onclick={() => setPage()}
         >
             <div className="h-full flex justify-center items-center gap-2">

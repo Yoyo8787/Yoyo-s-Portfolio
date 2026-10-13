@@ -1,69 +1,83 @@
 import type { CSSProperties, ReactNode } from "react";
-import React, { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
+
+gsap.registerPlugin(Flip);
 
 interface BoxProps {
     children: ReactNode;
     boxstyle?: CSSProperties;
     gridArea: string;
-    onclick?: () => void;
+    disabled: boolean;
+    onclick: () => void;
 }
 
-const Box = ({ children, boxstyle = {}, gridArea, onclick = () => {} }: BoxProps) => {
-    const [key, setKey] = useState(0);
-    const boxRef = useRef<HTMLDivElement>(null);
+// Flip 的 absolute 配置會暫存位置、尺寸及內距；中斷時一併移除。
+const animationStyles = "transform,transformOrigin,width,height,position,top,left,zIndex,maxWidth,maxHeight,minWidth,minHeight,paddingTop,paddingRight,paddingBottom,paddingLeft,transition";
 
-    useEffect(() => {
+const Box = ({ children, boxstyle = {}, gridArea, disabled, onclick }: BoxProps) => {
+    const boxRef = useRef<HTMLDivElement>(null);
+    const flipRef = useRef<gsap.core.Timeline | null>(null);
+    const clickRef = useRef<gsap.core.Timeline | null>(null);
+    const opacity = boxstyle.opacity ?? 1;
+
+    const restoreLayout = () => {
+        gsap.set(boxRef.current!, { clearProps: animationStyles });
+        gsap.set(boxRef.current!, { gridArea, opacity });
+    };
+
+    const stopAnimations = () => {
+        // 避免下一次 Flip 快照將已中斷的 timeline 推到結尾。
+        flipRef.current?.eventCallback("onComplete", null);
+        flipRef.current?.pause().kill();
+        clickRef.current?.eventCallback("onComplete", null);
+        clickRef.current?.pause().kill();
+        flipRef.current = null;
+        clickRef.current = null;
+        restoreLayout();
+    };
+
+    useLayoutEffect(() => {
         const box = boxRef.current!;
+        if (disabled && document.activeElement === box) box.blur();
         const state = Flip.getState(box);
-        box.style.gridArea = gridArea;
-        Flip.from(state, {
+        restoreLayout();
+        flipRef.current = Flip.from(state, {
             duration: 1,
             ease: "power1.inOut",
             absolute: true,
+            onComplete: restoreLayout,
         });
-    }, [gridArea]);
 
-    useEffect(() => {
-        if (key > 0) {
-            const box = boxRef.current!;
-            const tl = gsap.timeline();
-            tl.to(box, {
-                scale: 0.8,
-                opacity: 0.8,
-                duration: 0.1, // 假设整个动画持续时间为1秒，则这个阶段为0.1秒
-                ease: "power1.inOut", // 可以根据需要调整缓动效果
-            })
-                .to(box, {
-                    scale: 1.5,
-                    opacity: 0,
-                    duration: 0.9, // 剩下的时间
-                    ease: "power1.inOut",
-                })
-                .to(box, {
-                    scale: 1, // 恢复到原始缩放
-                    opacity: 1, // 恢复到原始透明度
-                    duration: 0.1, // 这个阶段的持续时间可以根据需要调整
-                    ease: "power1.inOut",
-                    onComplete: () => {
-                        box.style.transform = "none"; // 重置 transform
-                    },
-                });
-        }
+        return stopAnimations;
+    }, [gridArea, opacity, disabled]);
 
-        return () => {};
-    }, [key]);
+    const activate = () => {
+        if (disabled) return;
+        stopAnimations();
+        onclick();
+        clickRef.current = gsap.timeline({ onComplete: restoreLayout })
+            .to(boxRef.current!, { scale: 0.8, opacity: 0.8, duration: 0.1, ease: "power1.inOut" })
+            .to(boxRef.current!, { scale: 1.5, opacity: 0, duration: 0.9, ease: "power1.inOut" })
+            .to(boxRef.current!, { scale: 1, opacity, duration: 0.1, ease: "power1.inOut" });
+    };
 
     return (
         <div
-            style={{ ...boxstyle }}
-            onClick={() => {
-                onclick();
-                setKey((prevKey) => prevKey + 1);
+            style={boxstyle}
+            onClick={activate}
+            role="button"
+            aria-disabled={disabled}
+            tabIndex={disabled ? -1 : 0}
+            onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    if (!event.repeat) activate();
+                }
             }}
             ref={boxRef}
-            className="border border-solid border-primary p-4 rounded-lg cursor-pointer overflow-hidden text-foreground bg-background"
+            className={`border border-solid border-primary p-4 rounded-lg ${disabled ? "cursor-default" : "cursor-pointer"} overflow-hidden text-foreground bg-background`}
         >
             {children}
         </div>

@@ -1,22 +1,19 @@
+import { projects } from "../../data/projects";
 import type { CardProps } from "../../types";
 import React from "react";
 import Box from "../Box";
-import { projectBox5Config } from "../../assets/boxSetting";
 
-const ProjectBox5 = ({ setPage, position = "00" }: CardProps) => {
-    const { gridArea, opacity } = projectBox5Config[position];
+const ProjectBox5 = ({ setPage, layout, disabled }: CardProps) => {
+    const { gridArea, opacity } = layout;
     return (
         <Box
             boxstyle={{ opacity: opacity }}
             gridArea={gridArea}
+            disabled={disabled}
             onclick={() => setPage()}
         >
             <h2>實務經驗</h2>
-            <h3>
-                聊天機器人
-                <br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配置編輯器
-            </h3>
+            <h3>{projects.project5.cardTitle[0]}<br />{projects.project5.cardTitle[1]}</h3>
         </Box>
     );
 };

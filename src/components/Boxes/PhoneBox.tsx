@@ -1,20 +1,21 @@
+import { contacts } from "../../data/contacts";
 import type { CardProps } from "../../types";
 import React from "react";
 import Box from "../Box";
 import { FaPhoneAlt } from "react-icons/fa";
-import { phoneBoxConfig } from "../../assets/boxSetting";
 
-const PhoneBox = ({ setPage, position = "00" }: CardProps) => {
-    const { gridArea, opacity } = phoneBoxConfig[position];
+const PhoneBox = ({ setPage, layout, disabled }: CardProps) => {
+    const { gridArea, opacity } = layout;
     return (
         <Box
             boxstyle={{ aspectRatio: "1 / 1", opacity: opacity }}
             gridArea={gridArea}
+            disabled={disabled}
             onclick={() => setPage()}
         >
             <div className="h-full flex justify-center items-center gap-2">
                 <FaPhoneAlt className="w-[15%] text-[2rem]" />
-                <div>0918887333</div>
+                <div>{contacts.phone}</div>
             </div>
         </Box>
     );

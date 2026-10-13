@@ -1,14 +1,14 @@
 import type { CardProps } from "../../types";
 import React from "react";
 import Box from "../Box";
-import { personalBoxConfig } from "../../assets/boxSetting";
 
-const PersonalBox = ({ setPage = () => {}, position = "00" }: CardProps) => {
-    const { gridArea, opacity } = personalBoxConfig[position];
+const PersonalBox = ({ setPage, layout, disabled }: CardProps) => {
+    const { gridArea, opacity } = layout;
     return (
         <Box
             boxstyle={{ opacity: opacity }}
             gridArea={gridArea}
+            disabled={disabled}
             onclick={() => {
                 setPage();
             }}

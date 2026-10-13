@@ -1,17 +1,37 @@
-import type { Dispatch, ReactNode, SetStateAction } from "react";
-import React, { createContext, useContext, useState } from "react";
+import type { ReactNode } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 interface ThemeContextValue {
     isDarkMode: boolean;
-    setIsDarkMode: Dispatch<SetStateAction<boolean>>;
+    toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [preference, setPreference] = useState<boolean | null>(() => {
+        const storedTheme = localStorage.getItem("darkMode");
+        return storedTheme === "true" ? true : storedTheme === "false" ? false : null;
+    });
+    const [systemDark, setSystemDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const isDarkMode = preference ?? systemDark;
+
+    useEffect(() => {
+        if (preference !== null) return;
+        const query = window.matchMedia("(prefers-color-scheme: dark)");
+        const update = () => setSystemDark(query.matches);
+        update();
+        query.addEventListener("change", update);
+        return () => query.removeEventListener("change", update);
+    }, [preference]);
+
+    const toggleTheme = () => {
+        const nextTheme = !isDarkMode;
+        localStorage.setItem("darkMode", String(nextTheme));
+        setPreference(nextTheme);
+    };
 
     return (
-        <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+        <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
             {children}
         </ThemeContext.Provider>
     );

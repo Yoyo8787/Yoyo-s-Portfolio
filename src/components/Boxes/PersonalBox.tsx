@@ -13,11 +13,12 @@ const PersonalBox = ({ setPage, layout, disabled }: CardProps) => {
                 setPage();
             }}
         >
-            <div>
-                <h2>簡介</h2>
-                <div className="mt-2">
-                    我是<b>徐天祐</b>，一位資訊管理研究所人機互動實驗室的學生。
-                    我的興趣與專長主要是網頁全端開發，尤其是前端的設計與開發，希望能作為一名全端工程師有所貢獻。
+            <div className=" grid place-items-center h-full">
+                <div>
+                <h2 className="text-4xl">徐天祐</h2>
+                <div className="ml-4">
+                    前端工程師
+                </div>
                 </div>
             </div>
         </Box>

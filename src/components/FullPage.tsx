@@ -13,7 +13,7 @@ const FullPage = ({ children, open, onClose }: FullPageProps) => {
         <>
             {open ? (
                 <div
-                    className="bg-[color-mix(in_srgb,var(--backgroundcolor)_90%,transparent)] w-screen h-screen max-w-[100dvw] max-h-[100dvh] fixed top-0 left-0 z-2 flex justify-center items-center overflow-hidden animate-overlay"
+                    className="bg-[color-mix(in_srgb,var(--backgroundcolor)_90%,transparent)] w-screen h-screen max-w-dvw max-h-dvh fixed top-0 left-0 z-2 flex justify-center items-center overflow-hidden animate-overlay"
                     onClick={onClose}
                 >
                     <div

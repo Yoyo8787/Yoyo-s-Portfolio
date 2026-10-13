@@ -11,12 +11,12 @@ interface MenuProps {
 
 const Menu = ({ propstyle, items, selectedItem, selectItem }: MenuProps) => {
     return (
-        <div className="relative w-[90%] max-w-[35rem] flex justify-around h-11 rounded-[1.375rem] border border-solid border-primary bg-background" style={propstyle}>
+        <div className="relative w-[90%] max-w-140 flex justify-around h-11 rounded-[1.375rem] border border-solid border-primary bg-background" style={propstyle}>
             {items.map((item) => {
                 return (
                     <div
                         key={item.id}
-                        className="w-1/4 flex gap-[0.1rem] cursor-pointer justify-center items-center z-2 transition-all duration-[1s] ease-[ease] hover:[transform:scale(1.1)]"
+                        className="w-1/4 flex gap-[0.1rem] cursor-pointer justify-center items-center z-2 transition-all duration-1000 ease-[ease] hover:transform-[scale(1.1)]"
                         onClick={() => selectItem(item.id)}
                     >
                         {React.cloneElement(item.icon, {
@@ -35,7 +35,7 @@ const Menu = ({ propstyle, items, selectedItem, selectItem }: MenuProps) => {
                 );
             })}
             <div
-                className="bg-primary top-[0.3rem] h-8 rounded-[1rem] w-[23%] absolute transition-all duration-500 ease-[ease]"
+                className="bg-primary top-[0.3rem] h-8 rounded-2xl w-[23%] absolute transition-all duration-500 ease-[ease]"
                 style={{ left: `${25 * Number(selectedItem) + 1}%` }}
             ></div>
         </div>

@@ -4,8 +4,8 @@ import img from "../../assets/person.jpg";
 const PersonalPage = () => {
     return (
         <div className="grid grid-cols-2 grid-rows-2 mobile:flex mobile:flex-col">
-            <img className="[grid-area:1/2/3/3] w-[20rem] rounded-sm justify-self-end mobile:w-[60vw]" src={img} alt="" />
-            <div className="[grid-area:1/1/3/2] w-[18rem] mobile:w-[60vw] mobile:mt-8">
+            <img className="[grid-area:1/2/3/3] w-80 rounded-sm justify-self-end mobile:w-[60vw]" src={img} alt="" />
+            <div className="[grid-area:1/1/3/2] w-72 mobile:w-[60vw] mobile:mt-8">
                 <h2>簡介</h2>
                 <div className="mt-4">
                     我是<b>徐天祐</b>

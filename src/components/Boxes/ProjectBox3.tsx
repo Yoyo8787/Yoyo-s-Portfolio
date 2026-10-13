@@ -14,7 +14,7 @@ const ProjectBox3 = ({ setPage, layout, disabled }: CardProps) => {
         >
             <h2>實務經驗</h2>
             <h3>{projects.project3.cardTitle[0]}</h3>
-            <img src={projects.project3.cover} alt="" className="[transform:rotate(-25deg)] w-[12rem] relative top-4 left-12 rounded-sm" />
+            <img src={projects.project3.cover} alt="" className="transform-[rotate(-25deg)] w-48 relative top-4 left-12 rounded-sm" />
         </Box>
     );
 };

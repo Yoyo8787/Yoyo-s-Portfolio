@@ -1,6 +1,6 @@
 const ColorButton = ({ toggleTheme }: { toggleTheme: () => void }) => {
     return (
-        <div className="fixed top-4 right-4 w-8 h-8 p-1 bg-cover rounded-sm border-2 border-solid border-primary bg-background z-[99] cursor-pointer [&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-foreground!" onClick={toggleTheme}>
+        <div className="fixed top-4 right-4 w-8 h-8 p-1 bg-cover rounded-sm border-2 border-solid border-primary bg-background z-99 cursor-pointer [&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-foreground!" onClick={toggleTheme}>
             <svg
                 fill="#000000"
                 height="800px"

@@ -6,7 +6,7 @@ const renderText = (parts: TextPart[]) => parts.map((part, index) => (
 ));
 
 const ProjectPage = ({ project }: { project: Project }) => (
-    <div className="w-[35rem] max-w-[80vw] [&>h4]:mb-3 [&>p]:mt-1">
+    <div className="w-140 max-w-[80vw] [&>h4]:mb-3 [&>p]:mt-1">
         <h2>專案介紹：{project.title}</h2>
         <h4>{project.organization}</h4>
         <p>{renderText(project.introduction)}</p>
@@ -15,7 +15,7 @@ const ProjectPage = ({ project }: { project: Project }) => (
         <h3 className="mt-6">主要功能</h3>
         <ul>
             {project.features.map((feature, index) => (
-                <li key={index} className="flex gap-4 mt-2 items-center [&>img]:w-[10rem] [&>img]:rounded-lg"
+                <li key={index} className="flex gap-4 mt-2 items-center [&>img]:w-40 [&>img]:rounded-lg"
                     style={feature.fullWidth ? { maxWidth: "90%" } : undefined}>
                     {feature.title && (
                         <div><b>{feature.title}</b><div>{feature.description}</div></div>

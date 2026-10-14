@@ -73,7 +73,7 @@ const Layout = ({ children, boxstyle = {}, layout, disabled, setPage, actionType
     const isMail = href?.startsWith("mailto:") ?? false;
     const action = actionType === "none" ? null : actionIcons[isMail ? "mail" : actionType];
     const className = interactive
-        ? "relative border-2 border-solid border-primary bg-surface shadow-card cursor-pointer transition-[translate,box-shadow] duration-[120ms] hover:-translate-y-0.5 hover:shadow-[0.4rem_0.4rem_0_var(--shadowcolor)]"
+        ? "relative border-2 border-solid border-primary bg-surface shadow-card cursor-pointer transition-[translate,box-shadow] duration-120 hover:-translate-y-0.5 hover:shadow-[0.4rem_0.4rem_0_var(--shadowcolor)]"
         : "relative bg-surface-2";
     const isButton = interactive && actionType !== "link";
 

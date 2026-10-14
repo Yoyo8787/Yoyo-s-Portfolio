@@ -97,8 +97,8 @@ function App() {
                         setPage={() => handleAction(action)} />;
                 })}
             </div>
-            <ModalLayout open={contentId !== null} onClose={() => setContentId(null)}>
-                {contentId !== null && <Content contentId={contentId} />}
+            <ModalLayout open={contentId !== null} onClose={() => setContentId(null)} scrollKey={contentId}>
+                {contentId !== null && <Content contentId={contentId} onNavigate={setContentId} />}
             </ModalLayout>
         </div>
     );

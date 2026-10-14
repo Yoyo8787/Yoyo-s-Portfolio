@@ -1,17 +1,20 @@
-import { projects } from "../../constants/projects";
 import Personal from "./content/Personal";
-import School from "./content/School";
 import Skill from "./content/Skill";
-import Job from "./content/Job";
+import Timeline from "./content/Timeline";
 import Project from "./content/Project";
 
-const Content = ({ contentId }: { contentId: string }) => {
+interface ContentProps {
+    contentId: string;
+    onNavigate: (contentId: string) => void;
+}
+
+const Content = ({ contentId, onNavigate }: ContentProps) => {
     switch (contentId) {
         case "personal": return <Personal />;
-        case "school": return <School />;
+        case "school": return <Timeline initialTab="school" />;
         case "skill": return <Skill />;
-        case "job": return <Job />;
-        default: return <Project project={projects[contentId]} />;
+        case "job": return <Timeline initialTab="job" />;
+        default: return <Project projectId={contentId} onNavigate={onNavigate} />;
     }
 };
 

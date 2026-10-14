@@ -24,6 +24,7 @@
     --color-on-ink: var(--oninkcolor);
     --shadow-card: 0.3rem 0.3rem 0 var(--shadowcolor);
     --font-display: "Jockey One", "Noto Sans TC", sans-serif;
+    --font-kai: "LXGW WenKai TC", "Noto Sans TC", serif;
 }
 
 @theme {

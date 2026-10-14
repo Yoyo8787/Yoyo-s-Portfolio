@@ -1,12 +1,10 @@
 import type { CardProps } from "../../../types";
 import Layout from "../Layout";
 
-const Language = ({ setPage, layout, disabled }: CardProps) => {
+const Language = (props: CardProps) => {
     return (
         <Layout
-            layout={layout}
-            disabled={disabled}
-            setPage={setPage}
+            {...props}
         >
             <h2>語言</h2>
             <div className="mt-2">多益890分金色證書</div>

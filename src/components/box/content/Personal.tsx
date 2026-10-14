@@ -1,12 +1,10 @@
 import type { CardProps } from "../../../types";
 import Layout from "../Layout";
 
-const Personal = ({ setPage, layout, disabled }: CardProps) => {
+const Personal = (props: CardProps) => {
     return (
         <Layout
-            layout={layout}
-            disabled={disabled}
-            setPage={setPage}
+            {...props}
         >
             <div className=" grid place-items-center h-full">
                 <div>

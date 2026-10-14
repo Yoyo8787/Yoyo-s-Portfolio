@@ -33,12 +33,12 @@ const Layout = ({ children, open, onClose }: LayoutProps) => {
             }}
         >
             {open && (
-                <div className="bg-background border border-solid border-primary rounded-[0.2rem] max-w-[80vw] max-h-[90vh] relative animate-modal narrow:max-w-[90dvw] narrow:max-h-[90dvh]">
+                <div className="bg-surface border-2 border-solid border-primary rounded-2xl shadow-card overflow-hidden max-w-[80vw] max-h-[90vh] relative animate-modal motion-reduce:animate-none narrow:max-w-[90dvw] narrow:max-h-[90dvh]">
                     <button
                         type="button"
                         autoFocus
                         aria-label="關閉詳細內容"
-                        className="bg-background absolute top-2 right-2 text-foreground cursor-pointer"
+                        className="z-10 size-6 grid place-items-center rounded border-0 bg-surface-2 absolute top-2 right-2 text-foreground cursor-pointer"
                         onClick={onClose}
                     >
                         <IoMdClose />

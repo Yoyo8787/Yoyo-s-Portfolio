@@ -24,6 +24,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         return () => query.removeEventListener("change", update);
     }, [preference]);
 
+    // 讓手機瀏覽器網址列顏色跟著主題（白練／墨）。
+    useEffect(() => {
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", isDarkMode ? "#1c1c1c" : "#fcfaf2");
+    }, [isDarkMode]);
+
     const toggleTheme = () => {
         const nextTheme = !isDarkMode;
         localStorage.setItem("darkMode", String(nextTheme));

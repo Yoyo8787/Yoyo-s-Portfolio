@@ -10,7 +10,6 @@ import Job from "./content/Job";
 import Language from "./content/Language";
 import Email from "./content/Email";
 import Github from "./content/Github";
-import Murmur from "./content/Murmur";
 import ProjectShowcase from "./content/ProjectShowcase";
 
 interface CardDefinition {
@@ -31,8 +30,7 @@ export const cardRegistry: CardDefinition[] = [
     { id: "school", component: School, config: configs.schoolBoxConfig, action: { type: "content", contentId: "school" } },
     { id: "personal", component: Personal, config: configs.personalBoxConfig, action: { type: "content", contentId: "personal" } },
     { id: "skill", component: Skill, config: configs.skillBoxConfig, action: { type: "content", contentId: "skill" } },
-    { id: "email", component: Email, config: configs.emailBoxConfig, action: { type: "copy", text: contacts.email } },
+    { id: "email", component: Email, config: configs.emailBoxConfig, action: { type: "link", url: `mailto:${contacts.email}` } },
     { id: "github", component: Github, config: configs.githubBoxConfig, action: { type: "link", url: contacts.github } },
     { id: "job", component: Job, config: configs.jobBoxConfig, action: { type: "content", contentId: "job" } },
-    { id: "murmur", component: Murmur, config: configs.murmurBoxConfig, action: { type: "none" } },
 ];

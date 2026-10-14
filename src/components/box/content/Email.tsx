@@ -3,12 +3,10 @@ import type { CardProps } from "../../../types";
 import Layout, { CenteredContent } from "../Layout";
 import { MdEmail } from "react-icons/md";
 
-const Email = ({ setPage, layout, disabled }: CardProps) => {
+const Email = (props: CardProps) => {
     return (
         <Layout
-            layout={layout}
-            disabled={disabled}
-            setPage={setPage}
+            {...props}
         >
             <CenteredContent>
                 <MdEmail className="w-[15%] text-[2rem]" />

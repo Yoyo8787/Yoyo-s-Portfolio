@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { MenuId, MenuItem } from "../types";
 import React from "react";
+import { menuHashes } from "../constants/menu";
 
 interface MenuProps {
     propstyle: CSSProperties;
@@ -11,34 +12,31 @@ interface MenuProps {
 
 const Menu = ({ propstyle, items, selectedItem, selectItem }: MenuProps) => {
     return (
-        <div className="relative w-[90%] max-w-140 flex justify-around h-11 rounded-[1.375rem] border border-solid border-primary bg-background" style={propstyle}>
+        <nav aria-label="主要導覽" className="relative w-[90%] max-w-140 flex justify-around h-11 rounded-[1.375rem] border-2 border-solid border-primary bg-surface shadow-card" style={propstyle}>
             {items.map((item) => {
+                const selected = selectedItem === item.id;
                 return (
-                    <div
+                    <a
                         key={item.id}
-                        className="w-1/4 flex gap-[0.1rem] cursor-pointer justify-center items-center z-2 transition-all duration-1000 ease-[ease] hover:transform-[scale(1.1)]"
-                        onClick={() => selectItem(item.id)}
+                        href={menuHashes[item.id]}
+                        aria-current={selected ? "page" : undefined}
+                        className={`w-1/4 flex gap-[0.1rem] justify-center items-center z-2 no-underline transition-all duration-1000 ease-[ease] hover:transform-[scale(1.1)] ${selected ? "text-on-primary font-bold" : "text-foreground"}`}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            selectItem(item.id);
+                        }}
                     >
-                        {React.cloneElement(item.icon, {
-                            className: `w-4 h-4 ${
-                                selectedItem === item.id ? "text-background" : "text-foreground"
-                            } `,
-                        })}
-                        <div
-                            className={`text-[1rem] ${
-                                selectedItem === item.id ? "text-background" : "text-foreground"
-                            }`}
-                        >
-                            {item.text}
-                        </div>
-                    </div>
+                        {React.cloneElement(item.icon, { className: "w-4 h-4" })}
+                        <span className="text-[1rem]">{item.text}</span>
+                    </a>
                 );
             })}
             <div
-                className="bg-primary top-[0.3rem] h-8 rounded-2xl w-[23%] absolute transition-all duration-500 ease-[ease]"
+                aria-hidden
+                className="bg-primary top-1 h-8 rounded-2xl w-[23%] absolute transition-all duration-500 ease-[ease]"
                 style={{ left: `${25 * Number(selectedItem) + 1}%` }}
             ></div>
-        </div>
+        </nav>
     );
 };
 

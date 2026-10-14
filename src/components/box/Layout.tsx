@@ -1,7 +1,8 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
+import { TbArrowRight, TbArrowUpRight, TbMail } from "react-icons/tb";
 import type { CardProps } from "../../types";
 
 gsap.registerPlugin(Flip);
@@ -11,19 +12,26 @@ interface LayoutProps extends CardProps {
     boxstyle?: CSSProperties;
 }
 
-// Flip 的 absolute 配置會暫存位置、尺寸及內距；中斷時一併移除。
 const animationStyles = "transform,transformOrigin,width,height,position,top,left,zIndex,maxWidth,maxHeight,minWidth,minHeight,paddingTop,paddingRight,paddingBottom,paddingLeft,transition";
 
-const Layout = ({ children, boxstyle = {}, layout, disabled, setPage }: LayoutProps) => {
+const actionIcons = {
+    content: { Icon: TbArrowRight, label: "查看詳情" },
+    link: { Icon: TbArrowUpRight, label: "在新分頁開啟" },
+    mail: { Icon: TbMail, label: "寄信" },
+};
+
+const Layout = ({ children, boxstyle = {}, layout, disabled, setPage, actionType, href }: LayoutProps) => {
     const boxRef = useRef<HTMLDivElement>(null);
     const flipRef = useRef<gsap.core.Timeline | null>(null);
     const clickRef = useRef<gsap.core.Timeline | null>(null);
     const { gridArea } = layout;
-    const opacity = layout.opacity ?? 1;
+    const interactive = actionType !== "none";
+    const opacity = disabled ? 0.45 : 1;
+    const filter = disabled ? "blur(1.5px)" : "blur(0px)";
 
     const restoreLayout = () => {
         gsap.set(boxRef.current!, { clearProps: animationStyles });
-        gsap.set(boxRef.current!, { gridArea, opacity });
+        gsap.set(boxRef.current!, { gridArea, opacity, filter });
     };
 
     const stopAnimations = () => {
@@ -42,9 +50,10 @@ const Layout = ({ children, boxstyle = {}, layout, disabled, setPage }: LayoutPr
         if (disabled && document.activeElement === box) box.blur();
         const state = Flip.getState(box);
         restoreLayout();
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return stopAnimations;
         flipRef.current = Flip.from(state, {
-            duration: 1,
-            ease: "power1.inOut",
+            duration: 0.6,
+            ease: "back.out(1.2)",
             absolute: true,
             onComplete: restoreLayout,
         });
@@ -55,30 +64,50 @@ const Layout = ({ children, boxstyle = {}, layout, disabled, setPage }: LayoutPr
     const activate = () => {
         if (disabled) return;
         stopAnimations();
-        setPage();
+        if (actionType !== "link") setPage();
         clickRef.current = gsap.timeline({ onComplete: restoreLayout })
-            .to(boxRef.current!, { scale: 0.8, opacity: 0.8, duration: 0.1, ease: "power1.inOut" })
-            .to(boxRef.current!, { scale: 1.5, opacity: 0, duration: 0.9, ease: "power1.inOut" })
-            .to(boxRef.current!, { scale: 1, opacity, duration: 0.1, ease: "power1.inOut" });
+            .to(boxRef.current!, { scale: 0.97, duration: 0.06, ease: "power1.out" })
+            .to(boxRef.current!, { scale: 1, duration: 0.06, ease: "power1.in" });
     };
+
+    const isMail = href?.startsWith("mailto:") ?? false;
+    const action = actionType === "none" ? null : actionIcons[isMail ? "mail" : actionType];
+    const className = interactive
+        ? "relative border-2 border-solid border-primary bg-surface shadow-card cursor-pointer transition-[translate,box-shadow] duration-[120ms] hover:-translate-y-0.5 hover:shadow-[0.4rem_0.4rem_0_var(--shadowcolor)]"
+        : "relative bg-surface-2";
+    const isButton = interactive && actionType !== "link";
 
     return (
         <div
-            style={{ ...boxstyle, opacity }}
-            onClick={activate}
-            role="button"
-            aria-disabled={disabled}
-            tabIndex={disabled ? -1 : 0}
-            onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    if (!event.repeat) activate();
-                }
-            }}
+            style={{ ...boxstyle, opacity, filter }}
             ref={boxRef}
-            className={`border border-solid border-primary p-4 rounded-lg ${disabled ? "cursor-default" : "cursor-pointer"} overflow-hidden text-foreground bg-background`}
+            inert={disabled}
+            onClick={interactive ? activate : undefined}
+            {...(isButton ? {
+                role: "button",
+                tabIndex: 0,
+                onKeyDown: (event: KeyboardEvent) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        if (!event.repeat) activate();
+                    }
+                },
+            } : {})}
+            className={`${className} p-4 rounded-2xl overflow-hidden text-foreground`}
         >
             {children}
+            {actionType === "link" && (
+                <a href={href}
+                    {...(isMail ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                    aria-label={isMail ? `寄信給 ${href!.slice("mailto:".length)}` : `${href}（在新分頁開啟）`}
+                    className="absolute inset-0 z-10" />
+            )}
+            {action && (
+                <span className="absolute top-3 right-3 z-20 w-7 h-7 grid place-items-center rounded-full bg-surface text-primary-ink pointer-events-none"
+                    aria-label={action.label} role="img">
+                    <action.Icon aria-hidden />
+                </span>
+            )}
         </div>
     );
 };

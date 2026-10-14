@@ -15,39 +15,47 @@
     --color-secondary: var(--secondarycolor);
     --color-background: var(--backgroundcolor);
     --color-foreground: var(--fontcolor);
+    --color-surface: var(--surfacecolor);
+    --color-surface-2: var(--surface2color);
+    --color-muted: var(--mutedcolor);
+    --color-primary-ink: var(--primaryinkcolor);
+    --color-on-primary: var(--onprimarycolor);
+    --color-ink: var(--inkcolor);
+    --color-on-ink: var(--oninkcolor);
+    --shadow-card: 0.3rem 0.3rem 0 var(--shadowcolor);
+    --font-display: "Jockey One", "Noto Sans TC", sans-serif;
 }
 
 @theme {
-    --animate-copy: copy-fade 2s forwards;
-    --animate-overlay: overlay-fade 0.5s ease;
-    --animate-modal: modal-open 2s forwards;
+    --animate-overlay: overlay-fade 0.2s ease-out;
+    --animate-modal: modal-open 0.24s cubic-bezier(0.2, 0, 0, 1);
     --animate-float: float 3s infinite;
+    --animate-drift: drift 9s ease-in-out infinite alternate;
 
-    @keyframes copy-fade {
-        0%, 100% {
-            opacity: 0;
-        }
-        35%, 65% {
-            opacity: 1;
-        }
-    }
     @keyframes overlay-fade {
         0% {
             opacity: 0;
         }
-        90% {
+        100% {
             opacity: 1;
         }
     }
     @keyframes modal-open {
-        0%, 30% {
-            transform: scale(0);
+        0% {
+            opacity: 0;
+            transform: translateY(8px);
         }
-        60% {
-            transform: scale(1.1);
+        100% {
+            opacity: 1;
+            transform: translateY(0);
         }
-        80%, 100% {
-            transform: scale(1);
+    }
+    @keyframes drift {
+        0% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+        100% {
+            transform: translate(-1.5rem, 2rem) rotate(40deg);
         }
     }
     @keyframes float {
@@ -67,30 +75,66 @@
         padding: 0px;
         box-sizing: border-box;
     }
+    /* 手機不再縮到 12px，避免小字無法閱讀。 */
     html {
-        @apply text-[20px] compact:text-[16px] tablet:text-[12px];
+        @apply text-[20px] compact:text-[16px];
     }
     body {
         margin: 0;
-        font-family: "Jockey one", "Microsoft JhengHei", "PingFang", -apple-system,
-            BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-            "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-family: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", -apple-system,
+            BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+    /* 桜色弁当：色票取自日本傳統色（nipponcolors.com）。 */
     .App[theme="dark"] {
-        --accentcolor: #f4a7b9;
-        --primarycolor: #f4a7b9;
-        --secondarycolor: #d9ab42;
-        --backgroundcolor: #1c1c1c;
-        --fontcolor: #fedfe1;
+        --accentcolor: #f4a7b9; /* 一斥染 */
+        --primarycolor: #f4a7b9; /* 一斥染 */
+        --primaryinkcolor: #f4a7b9; /* 一斥染 */
+        --onprimarycolor: #1c1c1c; /* 墨 */
+        --secondarycolor: #dc9fb4; /* 撫子 */
+        --backgroundcolor: #1c1c1c; /* 墨 */
+        --surfacecolor: #3f2b36; /* 黒紅 */
+        --surface2color: #5e3d50; /* 葡萄鼠 */
+        --shadowcolor: #5e3d50; /* 葡萄鼠 */
+        --fontcolor: #fedfe1; /* 桜 */
+        --mutedcolor: #d7c4bb; /* 灰桜 */
+        --inkcolor: #1c1c1c; /* 墨 */
+        --oninkcolor: #fedfe1; /* 桜 */
     }
     .App[theme="light"] {
-        --accentcolor: #ffffff;
-        --primarycolor: #0d5661;
-        --secondarycolor: #e8b647;
-        --backgroundcolor: #d8e0e1;
-        --fontcolor: #050003;
+        --accentcolor: #f4a7b9; /* 一斥染 */
+        --primarycolor: #f4a7b9; /* 一斥染 */
+        --primaryinkcolor: #8e354a; /* 蘇芳 */
+        --onprimarycolor: #1c1c1c; /* 墨 */
+        --secondarycolor: #dc9fb4; /* 撫子 */
+        --backgroundcolor: #fcfaf2; /* 白練 */
+        --surfacecolor: #fffffb; /* 胡粉 */
+        --surface2color: #f8c3cd; /* 退紅 */
+        --shadowcolor: #f4a7b9; /* 一斥染 */
+        --fontcolor: #1c1c1c; /* 墨 */
+        --mutedcolor: #72636e; /* 鳩羽鼠 */
+        --inkcolor: #1c1c1c; /* 墨 */
+        --oninkcolor: #fedfe1; /* 桜 */
+    }
+
+    /* 青海波紋理，呼應背景波浪。 */
+    .seigaiha {
+        --wave-a: var(--surface2color);
+        --wave-b: var(--surfacecolor);
+        background-color: var(--wave-a);
+        background-image:
+            radial-gradient(circle at 100% 150%, var(--wave-a) 24%, var(--wave-b) 24%, var(--wave-b) 28%, var(--wave-a) 28%, var(--wave-a) 36%, var(--wave-b) 36%, var(--wave-b) 40%, transparent 40%, transparent),
+            radial-gradient(circle at 0 150%, var(--wave-a) 24%, var(--wave-b) 24%, var(--wave-b) 28%, var(--wave-a) 28%, var(--wave-a) 36%, var(--wave-b) 36%, var(--wave-b) 40%, transparent 40%, transparent),
+            radial-gradient(circle at 50% 100%, var(--wave-b) 10%, var(--wave-a) 10%, var(--wave-a) 23%, var(--wave-b) 23%, var(--wave-b) 30%, var(--wave-a) 30%, var(--wave-a) 43%, var(--wave-b) 43%, var(--wave-b) 50%, var(--wave-a) 50%, var(--wave-a) 63%, var(--wave-b) 63%, var(--wave-b) 71%, transparent 71%, transparent),
+            radial-gradient(circle at 100% 50%, var(--wave-b) 5%, var(--wave-a) 5%, var(--wave-a) 15%, var(--wave-b) 15%, var(--wave-b) 20%, var(--wave-a) 20%, var(--wave-a) 29%, var(--wave-b) 29%, var(--wave-b) 34%, var(--wave-a) 34%, var(--wave-a) 44%, var(--wave-b) 44%, var(--wave-b) 49%, transparent 49%, transparent),
+            radial-gradient(circle at 0 50%, var(--wave-b) 5%, var(--wave-a) 5%, var(--wave-a) 15%, var(--wave-b) 15%, var(--wave-b) 20%, var(--wave-a) 20%, var(--wave-a) 29%, var(--wave-b) 29%, var(--wave-b) 34%, var(--wave-a) 34%, var(--wave-a) 44%, var(--wave-b) 44%, var(--wave-b) 49%, transparent 49%, transparent);
+        background-size: 3rem 1.5rem;
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--primaryinkcolor);
+        outline-offset: 3px;
     }
 
     ::-webkit-scrollbar {

@@ -1,12 +1,10 @@
 import { schools } from "../../../constants/experience";
 import type { CardProps } from "../../../types";
 import Layout, { SummaryList } from "../Layout";
-const School = ({ setPage, layout, disabled }: CardProps) => {
+const School = (props: CardProps) => {
     return (
         <Layout
-            layout={layout}
-            disabled={disabled}
-            setPage={setPage}
+            {...props}
         >
             <h2>學歷</h2>
             <SummaryList>

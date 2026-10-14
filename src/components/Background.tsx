@@ -18,11 +18,16 @@ const Background = () => {
     const pathRefs = useRef<(SVGPathElement | null)[]>([]);
 
     useEffect(() => {
+        // 使用者偏好減少動態時保持靜態波浪。
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         let offset = 0;
         let frameId: number;
         const animate = () => {
-            offset = (offset + 0.05) % 100;
-            pathRefs.current.forEach((path, index) => path?.setAttribute("d", wavePath(index, offset)));
+            // 分頁在背景時跳過重算，回到前景再繼續。
+            if (!document.hidden) {
+                offset = (offset + 0.05) % 100;
+                pathRefs.current.forEach((path, index) => path?.setAttribute("d", wavePath(index, offset)));
+            }
             frameId = requestAnimationFrame(animate);
         };
         frameId = requestAnimationFrame(animate);
@@ -30,12 +35,13 @@ const Background = () => {
     }, []);
 
     return (
-        <svg style={{ position: "absolute" }} width="100vw" height="100vh"
+        <svg aria-hidden="true" style={{ position: "absolute" }} width="100vw" height="100vh"
             viewBox="0 0 100 50" preserveAspectRatio="none">
             {ribs.map((_, index) => (
                 <path key={index} ref={(path) => { pathRefs.current[index] = path; }}
-                    d={wavePath(index, 0)} fill="none" stroke="var(--accentcolor)" strokeWidth="0.1"
-                    style={{ opacity: "0.6", transform: "rotate(24deg) translate(-5%,-110%) scale(1.2)" }} />
+                    d={wavePath(index, 0)} fill="none"
+                    stroke={index % 2 === 0 ? "var(--accentcolor)" : "var(--secondarycolor)"} strokeWidth="0.12"
+                    style={{ opacity: "0.7", transform: "rotate(24deg) translate(-5%,-110%) scale(1.2)" }} />
             ))}
         </svg>
     );

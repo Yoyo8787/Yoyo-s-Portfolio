@@ -4,7 +4,6 @@ export type MenuId = "00" | "01" | "02" | "03";
 export type Position = MenuId | `${MenuId}mobile`;
 export type CardAction =
     | { type: "content"; contentId: string }
-    | { type: "copy"; text: string }
     | { type: "link"; url: string }
     | { type: "none" };
 
@@ -23,6 +22,8 @@ export interface CardProps {
     setPage: () => void;
     layout: CardLayout;
     disabled: boolean;
+    actionType: CardAction["type"];
+    href?: string;
 }
 
 export type BoxConfig = Record<Position, CardLayout>;

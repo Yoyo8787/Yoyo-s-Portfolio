@@ -7,7 +7,7 @@ const renderText = (parts: TextPart[]) => parts.map((part, index) => (
 
 const Project = ({ project }: { project: ProjectData }) => (
     <div className="w-140 max-w-[80vw] [&>h4]:mb-3 [&>p]:mt-1">
-        <h2>專案介紹：{project.title}</h2>
+        <h2 className="pr-12">{project.title}</h2>
         <h4>{project.organization}</h4>
         {project.cover && project.summary && (
             <img src={project.cover} alt={project.coverAlt ?? project.title}

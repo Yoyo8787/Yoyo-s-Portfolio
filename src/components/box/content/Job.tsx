@@ -1,12 +1,10 @@
 import { jobs } from "../../../constants/experience";
 import type { CardProps } from "../../../types";
 import Layout, { SummaryList } from "../Layout";
-const Job = ({ setPage, layout, disabled }: CardProps) => {
+const Job = (props: CardProps) => {
     return (
         <Layout
-            layout={layout}
-            disabled={disabled}
-            setPage={setPage}
+            {...props}
         >
             <h2>工作經驗</h2>
             <SummaryList>

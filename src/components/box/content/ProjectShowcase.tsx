@@ -22,7 +22,7 @@ const ProjectShowcase = ({ projectId, ...props }: CardProps & { projectId: strin
                 </ul>
                 {project.cover && (
                     <img src={project.cover} alt={project.coverAlt ?? project.title}
-                        className={`absolute right-0 top-0 ${isOnlineExam ? "w-[60%]" : "w-[40%] seigaiha rounded-xl"} h-full object-contain`} />
+                        className={`absolute top-0 ${isOnlineExam ? "right-[-4%] w-[72%] rotate-6 pointer-events-none mask-[linear-gradient(to_right,transparent,black_40%)]" : "right-0 w-[50%] seigaiha rounded-xl"} h-full object-contain`} />
                 )}
             </div>
         </Layout>

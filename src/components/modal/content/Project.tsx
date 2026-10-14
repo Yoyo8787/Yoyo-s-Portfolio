@@ -1,10 +1,8 @@
 import type { ReactNode } from "react";
 import { Fragment, useEffect } from "react";
 import { TbLock } from "react-icons/tb";
-import { projects } from "../../../constants/projects";
-import type { TextPart } from "../../../types";
+import type { Project as ProjectData, TextPart } from "../../../types";
 
-const projectIds = Object.keys(projects);
 const pad = (value: number) => String(value).padStart(2, "0");
 
 const renderText = (parts: TextPart[]) => parts.map((part, index) => (
@@ -22,30 +20,27 @@ const Section = ({ index, title, children }: { index: number; title: string; chi
 );
 
 interface ProjectProps {
-    projectId: string;
-    onNavigate: (projectId: string) => void;
+    project: ProjectData;
+    onPrevious: () => void;
+    onNext: () => void;
 }
 
-const Project = ({ projectId, onNavigate }: ProjectProps) => {
-    const project = projects[projectId];
-    const index = projectIds.indexOf(projectId);
-    const prevId = projectIds[(index - 1 + projectIds.length) % projectIds.length];
-    const nextId = projectIds[(index + 1) % projectIds.length];
+const Project = ({ project, onPrevious, onNext }: ProjectProps) => {
     const isPersonal = project.organization.includes("個人");
     const hasFeatureImages = project.features.some((feature) => feature.image);
 
     // ← → 切換專案；畫面上不顯示提示。
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "ArrowLeft") onNavigate(prevId);
-            if (event.key === "ArrowRight") onNavigate(nextId);
+            if (event.key === "ArrowLeft") onPrevious();
+            if (event.key === "ArrowRight") onNext();
         };
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [prevId, nextId, onNavigate]);
+    }, [onPrevious, onNext]);
 
     return (
-        <article aria-labelledby="project-title" className="w-240 max-w-full">
+        <article aria-labelledby="project-title" className="w-full">
             {!project.cover && (
                 <div aria-hidden="true" className="seigaiha [--wave-a:#46293a] [--wave-b:#6b3f55] h-50 flex items-end px-12 pb-7 mobile:h-36 mobile:px-5 mobile:pb-5">
                     <span className="font-display text-[4.5rem] leading-[0.9] tracking-[0.02em] text-[#fedfe1] mobile:text-[2.75rem]">

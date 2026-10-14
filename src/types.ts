@@ -1,15 +1,31 @@
-import type { CSSProperties, ReactElement } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export type MenuId = "00" | "01" | "02" | "03";
 export type Position = MenuId | `${MenuId}mobile`;
 export type CardAction =
-    | { type: "content"; contentId: string }
+    | { type: "content"; detail: DetailDefinition }
     | { type: "link"; url: string }
     | { type: "none" };
 
-export interface CardLayout {
+export type CardInteraction =
+    | { type: "content"; onActivate: () => void }
+    | { type: "link"; href: string }
+    | { type: "none" };
+
+export type CardTone = "default" | "ink";
+export type ShowcasePresentation = "compact" | "cover" | "angled-cover";
+export type DialogSize = "sm" | "md" | "lg" | "xl";
+
+export interface DetailDefinition {
+    id: string;
+    titleId: string;
+    size: DialogSize;
+    render: (onNavigate: (detail: DetailDefinition) => void) => ReactNode;
+}
+
+export interface CardPlacement {
     gridArea: string;
-    opacity: CSSProperties["opacity"];
+    disabled: boolean;
 }
 
 export interface MenuItem {
@@ -18,15 +34,7 @@ export interface MenuItem {
     icon: ReactElement<{ className?: string }>;
 }
 
-export interface CardProps {
-    setPage: () => void;
-    layout: CardLayout;
-    disabled: boolean;
-    actionType: CardAction["type"];
-    href?: string;
-}
-
-export type BoxConfig = Record<Position, CardLayout>;
+export type BoxConfig = Record<Position, CardPlacement>;
 
 export interface TextPart {
     text: string;

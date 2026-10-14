@@ -1,13 +1,13 @@
-import type { CardAction, MenuId, MenuItem, Position } from "./types";
+import type { DetailDefinition, MenuId, MenuItem, Position } from "./types";
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "./hooks/useTheme";
 import { useMobileLayout } from "./hooks/useMobileLayout";
-import { cardRegistry } from "./components/box/registry";
+import { cardRegistry, getCardInteraction } from "./components/registry";
 import { menuHashes } from "./constants/menu";
 import ColorButton from "./components/ColorButton";
 import Menu from "./components/Menu";
-import ModalLayout from "./components/modal/Layout";
-import Content from "./components/modal/Content";
+import BentoCard from "./components/box/BentoCard";
+import DetailDialog from "./components/modal/DetailDialog";
 import Background from "./components/Background";
 import Petals from "./components/Petals";
 import { TbHome, TbUser, TbPresentation, TbPhone } from "react-icons/tb";
@@ -20,7 +20,7 @@ const getMenuFromHash = (): MenuId =>
 function App() {
     const appRef = useRef<HTMLDivElement>(null);
     const { isDarkMode, toggleTheme } = useTheme();
-    const [contentId, setContentId] = useState<string | null>(null);
+    const [detail, setDetail] = useState<DetailDefinition | null>(null);
     const [selectedItem, setSelectedItem] = useState<MenuId>(getMenuFromHash);
     const isMobile = useMobileLayout();
     const position: Position = isMobile ? `${selectedItem}mobile` : selectedItem;
@@ -57,11 +57,6 @@ function App() {
         },
     ];
 
-    // 連結卡（GitHub、Email）由卡片內的 <a> 直接開啟，這裡只處理詳情。
-    const handleAction = (action: CardAction) => {
-        if (action.type === "content") setContentId(action.contentId);
-    };
-
     return (
         <div
             ref={appRef}
@@ -88,18 +83,16 @@ function App() {
                 }}
             />
             <div className="relative left-1/2 mt-8 grid w-[clamp(10rem,84vw,50rem)] grid-cols-4 auto-rows-[clamp(1.75rem,calc(21vw-0.75rem),11.75rem)] gap-4 pb-24 transform-[translateX(-50%)] mobile:grid-cols-2 mobile:auto-rows-[clamp(4.5rem,calc(42vw-0.5rem),24.5rem)] before:content-[''] before:w-0 before:pb-[100%] before:row-start-1 before:row-end-1 before:col-start-1 before:col-end-1 before:aspect-square bento-container">
-                {cardRegistry.map(({ id, component: Card, config, action }) => {
-                    const layout = config[position];
-                    const disabled = Number(layout.opacity) === 0.2;
-                    return <Card key={id} layout={layout} disabled={disabled}
-                        actionType={action.type}
-                        href={action.type === "link" ? action.url : undefined}
-                        setPage={() => handleAction(action)} />;
-                })}
+                {cardRegistry.map(({ id, content, config, action, tone }) => (
+                    <BentoCard key={id} placement={config[position]} interaction={getCardInteraction(action, setDetail)} tone={tone}>
+                        {content}
+                    </BentoCard>
+                ))}
             </div>
-            <ModalLayout open={contentId !== null} onClose={() => setContentId(null)} scrollKey={contentId}>
-                {contentId !== null && <Content contentId={contentId} onNavigate={setContentId} />}
-            </ModalLayout>
+            <DetailDialog open={detail !== null} onClose={() => setDetail(null)} scrollKey={detail?.id}
+                size={detail?.size ?? "lg"} labelledBy={detail?.titleId}>
+                {detail?.render(setDetail)}
+            </DetailDialog>
         </div>
     );
 }

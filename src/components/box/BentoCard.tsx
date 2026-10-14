@@ -1,15 +1,17 @@
-import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import { TbArrowRight, TbArrowUpRight, TbMail } from "react-icons/tb";
-import type { CardProps } from "../../types";
+import type { CardInteraction, CardPlacement, CardTone } from "../../types";
 
 gsap.registerPlugin(Flip);
 
-interface LayoutProps extends CardProps {
+interface BentoCardProps {
     children: ReactNode;
-    boxstyle?: CSSProperties;
+    placement: CardPlacement;
+    interaction: CardInteraction;
+    tone?: CardTone;
 }
 
 const animationStyles = "transform,transformOrigin,width,height,position,top,left,zIndex,maxWidth,maxHeight,minWidth,minHeight,paddingTop,paddingRight,paddingBottom,paddingLeft,transition";
@@ -20,12 +22,12 @@ const actionIcons = {
     mail: { Icon: TbMail, label: "寄信" },
 };
 
-const Layout = ({ children, boxstyle = {}, layout, disabled, setPage, actionType, href }: LayoutProps) => {
+const BentoCard = ({ children, placement, interaction, tone = "default" }: BentoCardProps) => {
     const boxRef = useRef<HTMLDivElement>(null);
     const flipRef = useRef<gsap.core.Timeline | null>(null);
     const clickRef = useRef<gsap.core.Timeline | null>(null);
-    const { gridArea } = layout;
-    const interactive = actionType !== "none";
+    const { gridArea, disabled } = placement;
+    const interactive = interaction.type !== "none";
     const opacity = disabled ? 0.45 : 1;
     const filter = disabled ? "blur(1.5px)" : "blur(0px)";
 
@@ -64,22 +66,23 @@ const Layout = ({ children, boxstyle = {}, layout, disabled, setPage, actionType
     const activate = () => {
         if (disabled) return;
         stopAnimations();
-        if (actionType !== "link") setPage();
+        if (interaction.type === "content") interaction.onActivate();
         clickRef.current = gsap.timeline({ onComplete: restoreLayout })
             .to(boxRef.current!, { scale: 0.97, duration: 0.06, ease: "power1.out" })
             .to(boxRef.current!, { scale: 1, duration: 0.06, ease: "power1.in" });
     };
 
-    const isMail = href?.startsWith("mailto:") ?? false;
-    const action = actionType === "none" ? null : actionIcons[isMail ? "mail" : actionType];
+    const isMail = interaction.type === "link" && interaction.href.startsWith("mailto:");
+    const action = interaction.type === "none" ? null : actionIcons[isMail ? "mail" : interaction.type];
     const className = interactive
-        ? "relative border-2 border-solid border-primary bg-surface shadow-card cursor-pointer transition-[translate,box-shadow] duration-120 hover:-translate-y-0.5 hover:shadow-[0.4rem_0.4rem_0_var(--shadowcolor)]"
-        : "relative bg-surface-2";
-    const isButton = interactive && actionType !== "link";
+        ? "relative border-2 border-solid border-primary shadow-card cursor-pointer transition-[translate,box-shadow] duration-120 hover:-translate-y-0.5 hover:shadow-[0.4rem_0.4rem_0_var(--shadowcolor)]"
+        : "relative";
+    const colors = tone === "ink" ? "bg-ink text-on-ink" : `${interactive ? "bg-surface" : "bg-surface-2"} text-foreground`;
+    const isButton = interaction.type === "content";
 
     return (
         <div
-            style={{ ...boxstyle, opacity, filter }}
+            style={{ opacity, filter }}
             ref={boxRef}
             inert={disabled}
             onClick={interactive ? activate : undefined}
@@ -93,13 +96,13 @@ const Layout = ({ children, boxstyle = {}, layout, disabled, setPage, actionType
                     }
                 },
             } : {})}
-            className={`${className} p-4 rounded-2xl overflow-hidden text-foreground`}
+            className={`${className} ${colors} p-4 rounded-2xl overflow-hidden`}
         >
             {children}
-            {actionType === "link" && (
-                <a href={href}
+            {interaction.type === "link" && (
+                <a href={interaction.href}
                     {...(isMail ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-                    aria-label={isMail ? `寄信給 ${href!.slice("mailto:".length)}` : `${href}（在新分頁開啟）`}
+                    aria-label={isMail ? `寄信給 ${interaction.href.slice("mailto:".length)}` : `${interaction.href}（在新分頁開啟）`}
                     className="absolute inset-0 z-10" />
             )}
             {action && (
@@ -112,12 +115,4 @@ const Layout = ({ children, boxstyle = {}, layout, disabled, setPage, actionType
     );
 };
 
-export const CenteredContent = ({ children }: { children: ReactNode }) => (
-    <div className="h-full flex justify-center items-center gap-2">{children}</div>
-);
-
-export const SummaryList = ({ children }: { children: ReactNode }) => (
-    <ul className="max-w-full pt-2 gap-4 [&>li]:ml-4 [&>li]:mb-1">{children}</ul>
-);
-
-export default Layout;
+export default BentoCard;

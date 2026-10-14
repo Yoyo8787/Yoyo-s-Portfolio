@@ -6,7 +6,7 @@ const facts = [
 ];
 
 const Personal = () => (
-    <div className="w-220 max-w-full grid grid-cols-[22.5rem_minmax(0,1fr)] mobile:grid-cols-1">
+    <div className="w-full grid grid-cols-[22.5rem_minmax(0,1fr)] mobile:grid-cols-1">
         <div className="relative flex items-center justify-center p-10 bg-background overflow-hidden mobile:p-8">
             <div aria-hidden="true" className="seigaiha [--wave-a:#46293a] [--wave-b:#6b3f55] absolute inset-x-0 bottom-0 h-2/5" />
             <div className="relative rotate-[-1.5deg]">
@@ -17,7 +17,7 @@ const Personal = () => (
         </div>
 
         <div className="flex flex-col gap-4 px-12 pt-12 pb-10 mobile:px-5 mobile:pt-6 mobile:pb-8">
-            <h2 className="m-0 text-[3.25rem] font-bold leading-[1.1] mobile:text-[2.5rem]">徐天祐</h2>
+            <h2 id="personal-title" className="m-0 text-[3.25rem] font-bold leading-[1.1] mobile:text-[2.5rem]">徐天祐</h2>
             <p className="m-0 text-base leading-[1.75] text-muted max-w-100">
                 專注前端開發，具備後端開發能力。從 3D 互動、AI 工作流到大型 Nx 專案，喜歡把複雜的東西做成好操作的介面。
             </p>

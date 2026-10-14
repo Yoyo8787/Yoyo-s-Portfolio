@@ -54,7 +54,7 @@ export const projects: Record<string, Project> = {
         cardTitle: ["視覺化 AI 工作流"],
         organization: "Perfect Corp.",
         summary: "運用 AI 輔助開發，在一個月內快速交付可操作的工作流 Prototype／MVP。",
-        tags: ["Prototype / MVP", "AI 輔助開發", "一個月內交付"],
+        tags: ["MVP", "AI Assist", "快速交付"],
         coverText: "VISUAL AI WORKFLOW",
         deidentified: true,
         meta: [{ label: "範圍", value: "Prototype／MVP" }, { label: "時程", value: "一個月內交付" }, { label: "技術", value: "Next.js · React Flow" }],

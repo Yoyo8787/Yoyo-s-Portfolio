@@ -1,11 +1,15 @@
 import type { Project, ShowcasePresentation } from "../../../types";
+import { useTranslation } from "react-i18next";
+import { projects, type ProjectId } from "../../../constants/projects";
 
 interface ProjectShowcaseProps {
-    project: Project;
+    projectId: ProjectId;
     presentation: ShowcasePresentation;
 }
 
-const ProjectShowcase = ({ project, presentation }: ProjectShowcaseProps) => {
+const ProjectShowcase = ({ projectId, presentation }: ProjectShowcaseProps) => {
+    const { t } = useTranslation();
+    const project: Project = projects[projectId](t);
     const isAngledCover = presentation === "angled-cover";
     const compact = presentation !== "cover";
 
@@ -13,7 +17,7 @@ const ProjectShowcase = ({ project, presentation }: ProjectShowcaseProps) => {
         <div className={`relative h-full flex flex-col ${compact ? "gap-2" : "gap-3"}`}>
             <p className={`${compact ? "text-xs pr-8" : "text-sm mobile:pr-8"} ${isAngledCover ? "max-w-[40%]" : ""} text-primary-ink`}>{project.organization}</p>
             <h3 className={`${compact ? "text-[0.85rem] leading-snug" : "max-w-[60%] mobile:max-w-full"} ${isAngledCover ? "max-w-[40%]" : ""}`}>{project.cardTitle.join(" · ")}</h3>
-            {project.cover && !compact && (
+            {project.cover && !compact && project.summary && (
                 <p className="text-sm leading-relaxed max-w-[60%] mobile:hidden">{project.summary}</p>
             )}
             {/* 手機卡片太窄，大卡改成標題、圖片、標籤由上而下排列。 */}

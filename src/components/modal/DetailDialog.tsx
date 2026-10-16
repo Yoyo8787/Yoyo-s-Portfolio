@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { IoMdClose } from "react-icons/io";
 import type { DialogSize } from "../../types";
 
@@ -20,6 +21,7 @@ const panelWidths: Record<DialogSize, string> = {
 };
 
 const DetailDialog = ({ children, open, onClose, scrollKey, size, labelledBy }: DetailDialogProps) => {
+    const { t } = useTranslation();
     const dialogRef = useRef<HTMLDialogElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +57,7 @@ const DetailDialog = ({ children, open, onClose, scrollKey, size, labelledBy }: 
                     <button
                         type="button"
                         autoFocus
-                        aria-label="關閉詳細內容"
+                        aria-label={t("close")}
                         className="z-20 size-11 grid place-items-center rounded-xl border-2 border-solid border-primary bg-surface text-foreground shadow-[0.2rem_0.2rem_0_var(--shadowcolor)] absolute top-3.5 right-4 cursor-pointer text-[1.25rem] mobile:top-2.5 mobile:right-3"
                         onClick={onClose}
                     >

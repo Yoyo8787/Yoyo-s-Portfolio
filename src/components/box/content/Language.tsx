@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 const Language = () => {
+    const { t } = useTranslation();
     return (
         <>
-            <h2>語言</h2>
-            <div className="mt-2">多益890分金色證書</div>
+            <h2>{t("language.title")}</h2>
+            <div className="mt-2">{t("language.certificate")}</div>
         </>
     );
 };

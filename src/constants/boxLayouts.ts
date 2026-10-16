@@ -1,11 +1,12 @@
 import type { BoxConfig, ShowcasePresentation } from "../types";
+import type { ProjectId } from "./projects";
 
 // 各組位置依序為首頁、個人、專案、聯絡；只有有圖片的專案使用大卡。
-const projectPlacements: [string, ShowcasePresentation, string[], string[]][] = [
+const projectPlacements: [ProjectId, ShowcasePresentation, string[], string[]][] = [
     ["hexacalm", "cover",
         ["6 / 1 / 8 / 5", "6 / 1 / 8 / 5", "1 / 1 / 3 / 5", "6 / 1 / 8 / 5"],
         ["10 / 1 / 12 / 3", "10 / 1 / 12 / 3", "1 / 1 / 3 / 3", "10 / 1 / 12 / 3"]],
-    ["project2", "angled-cover",
+    ["onlineExam", "angled-cover",
         ["1 / 3 / 2 / 5", "4 / 3 / 5 / 5", "3 / 1 / 4 / 3", "8 / 1 / 9 / 5"],
         ["6 / 1 / 7 / 3", "6 / 1 / 7 / 3", "3 / 1 / 4 / 3", "8 / 1 / 9 / 3"]],
     ["agentService", "compact",
@@ -17,26 +18,25 @@ const projectPlacements: [string, ShowcasePresentation, string[], string[]][] = 
     ["apiWorkspace", "compact",
         ["5 / 2 / 6 / 3", "5 / 2 / 6 / 3", "4 / 1 / 5 / 2", "5 / 4 / 6 / 5"],
         ["7 / 2 / 8 / 3", "7 / 2 / 8 / 3", "5 / 1 / 6 / 2", "9 / 2 / 10 / 3"]],
-    ["project5", "compact",
+    ["chatbotConfig", "compact",
         ["5 / 1 / 6 / 2", "4 / 1 / 5 / 2", "4 / 2 / 5 / 3", "5 / 1 / 6 / 2"],
         ["7 / 1 / 8 / 2", "5 / 1 / 6 / 2", "5 / 2 / 6 / 3", "7 / 1 / 8 / 2"]],
 ];
 
-export const showcaseConfigs: Record<string, { presentation: ShowcasePresentation; config: BoxConfig }> = Object.fromEntries(
-    projectPlacements.map(([id, presentation, desktop, mobile]) => [id, {
-        presentation,
-        config: {
-            "00": { gridArea: desktop[0], disabled: false },
-            "01": { gridArea: desktop[1], disabled: true },
-            "02": { gridArea: desktop[2], disabled: false },
-            "03": { gridArea: desktop[3], disabled: true },
-            "00mobile": { gridArea: mobile[0], disabled: false },
-            "01mobile": { gridArea: mobile[1], disabled: true },
-            "02mobile": { gridArea: mobile[2], disabled: false },
-            "03mobile": { gridArea: mobile[3], disabled: true },
-        },
-    }]),
-);
+export const showcaseConfigs = projectPlacements.map(([id, presentation, desktop, mobile]) => ({
+    id,
+    presentation,
+    config: {
+        "00": { gridArea: desktop[0], disabled: false },
+        "01": { gridArea: desktop[1], disabled: true },
+        "02": { gridArea: desktop[2], disabled: false },
+        "03": { gridArea: desktop[3], disabled: true },
+        "00mobile": { gridArea: mobile[0], disabled: false },
+        "01mobile": { gridArea: mobile[1], disabled: true },
+        "02mobile": { gridArea: mobile[2], disabled: false },
+        "03mobile": { gridArea: mobile[3], disabled: true },
+    } satisfies BoxConfig,
+}));
 
 export const githubBoxConfig: BoxConfig = {
     "00": { gridArea: "8 / 1 / 9 / 5", disabled: false },

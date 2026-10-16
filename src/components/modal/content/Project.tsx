@@ -1,13 +1,11 @@
 import type { ReactNode } from "react";
 import { Fragment, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { TbLock } from "react-icons/tb";
 import type { Project as ProjectData, TextPart } from "../../../types";
+import { projects, type ProjectId } from "../../../constants/projects";
 
 const pad = (value: number) => String(value).padStart(2, "0");
-
-const renderText = (parts: TextPart[]) => parts.map((part, index) => (
-    <Fragment key={index}>{part.strong ? <b>{part.text}</b> : part.text}</Fragment>
-));
 
 const Section = ({ index, title, children }: { index: number; title: string; children: ReactNode }) => (
     <section className="grid grid-cols-[11rem_minmax(0,1fr)] gap-8 tablet:grid-cols-1 tablet:gap-2">
@@ -20,14 +18,20 @@ const Section = ({ index, title, children }: { index: number; title: string; chi
 );
 
 interface ProjectProps {
-    project: ProjectData;
+    projectId: ProjectId;
     onPrevious: () => void;
     onNext: () => void;
 }
 
-const Project = ({ project, onPrevious, onNext }: ProjectProps) => {
-    const isPersonal = project.organization.includes("個人");
-    const hasFeatureImages = project.features.some((feature) => feature.image);
+const Project = ({ projectId, onPrevious, onNext }: ProjectProps) => {
+    const { t } = useTranslation();
+    const project: ProjectData = projects[projectId](t);
+    const renderText = (parts: TextPart[]) => parts.map((part, index) => (
+        <Fragment key={index}>{part.strong ? <b>{part.text}</b> : part.text}</Fragment>
+    ));
+    const isPersonal = project.isPersonal;
+    const features = Object.entries(project.features);
+    const hasFeatureImages = features.some(([, feature]) => feature.image);
 
     // ← → 切換專案；畫面上不顯示提示。
     useEffect(() => {
@@ -75,8 +79,8 @@ const Project = ({ project, onPrevious, onNext }: ProjectProps) => {
                     {project.meta && (
                         <div className="flex flex-col gap-4">
                             <dl className="m-0 pt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2.5 text-[0.875rem] leading-[1.6] border-0 border-t-2 border-solid border-primary">
-                                {project.meta.map((item) => (
-                                    <Fragment key={item.label}>
+                                {Object.entries(project.meta).map(([id, item]) => (
+                                    <Fragment key={id}>
                                         <dt className="font-medium text-primary-ink">{item.label}</dt>
                                         <dd className="m-0">{item.value}</dd>
                                     </Fragment>
@@ -85,7 +89,7 @@ const Project = ({ project, onPrevious, onNext }: ProjectProps) => {
                             {project.deidentified && (
                                 <p className="m-0 flex gap-2 items-start text-[0.8125rem] leading-[1.6] text-muted">
                                     <TbLock aria-hidden="true" className="shrink-0 mt-0.5 text-base" />
-                                    公司專案內容已去識別化，不附產品截圖。
+                                    {t("project.deidentified")}
                                 </p>
                             )}
                         </div>
@@ -97,19 +101,19 @@ const Project = ({ project, onPrevious, onNext }: ProjectProps) => {
                         className="block w-full h-110 object-cover rounded-xl border-2 border-solid border-ink mobile:h-52" />
                 )}
 
-                <Section index={1} title="專案介紹">
+                <Section index={1} title={t("project.introduction")}>
                     <p className="m-0 text-base leading-[1.75]">{renderText(project.introduction)}</p>
                 </Section>
 
-                <Section index={2} title="技術和工具">
+                <Section index={2} title={t("project.technology")}>
                     <p className="m-0 text-base leading-[1.75] text-muted">{renderText(project.technology)}</p>
                 </Section>
 
-                <Section index={3} title={project.featuresHeading ?? "主要功能"}>
+                <Section index={3} title={project.featuresHeading ?? t("project.features")}>
                     {hasFeatureImages ? (
                         <ol className="list-none m-0 p-0 flex flex-col border-0 border-b-2 border-solid border-primary">
-                            {project.features.map((feature, featureIndex) => (
-                                <li key={featureIndex} className="grid grid-cols-[3.5rem_minmax(0,1fr)_8rem] gap-5 py-5 items-start border-0 border-t-2 border-solid border-primary mobile:grid-cols-[2.5rem_minmax(0,1fr)] mobile:gap-3">
+                            {features.map(([id, feature], featureIndex) => (
+                                <li key={id} className="grid grid-cols-[3.5rem_minmax(0,1fr)_8rem] gap-5 py-5 items-start border-0 border-t-2 border-solid border-primary mobile:grid-cols-[2.5rem_minmax(0,1fr)] mobile:gap-3">
                                     <span className="font-display text-[2.25rem] leading-none text-primary-ink mobile:text-[1.75rem]">{pad(featureIndex + 1)}</span>
                                     <div className={feature.image ? "" : "col-span-2 mobile:col-span-1"}>
                                         {feature.title && <h4 className="m-0 mb-1 text-[1.125rem] font-bold">{feature.title.replace(/：$/, "")}</h4>}
@@ -124,8 +128,8 @@ const Project = ({ project, onPrevious, onNext }: ProjectProps) => {
                         </ol>
                     ) : (
                         <ol className="list-none m-0 p-0 grid grid-cols-2 gap-x-8 gap-y-7 mobile:grid-cols-1">
-                            {project.features.map((feature, featureIndex) => (
-                                <li key={featureIndex} className="flex flex-col gap-1.5 pt-3.5 border-0 border-t-2 border-solid border-primary">
+                            {features.map(([id, feature], featureIndex) => (
+                                <li key={id} className="flex flex-col gap-1.5 pt-3.5 border-0 border-t-2 border-solid border-primary">
                                     <span className="font-display text-[1.75rem] leading-none text-primary-ink">{pad(featureIndex + 1)}</span>
                                     {feature.title && <h4 className="m-0 text-[1.125rem] font-bold">{feature.title.replace(/：$/, "")}</h4>}
                                     {feature.description && <p className="m-0 text-[0.9375rem] leading-[1.75] text-muted">{feature.description}</p>}
@@ -135,7 +139,7 @@ const Project = ({ project, onPrevious, onNext }: ProjectProps) => {
                     )}
                 </Section>
 
-                <Section index={4} title="個人貢獻">
+                <Section index={4} title={t("project.contribution")}>
                     <p className="m-0 text-base leading-[1.75]">{renderText(project.contribution)}</p>
                 </Section>
             </div>

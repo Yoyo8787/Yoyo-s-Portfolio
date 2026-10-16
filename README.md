@@ -4,6 +4,7 @@
 
 網站以卡片呈現內容，支援作品詳細介紹、響應式版面、深淺主題與互動動畫。
 使用 React 19、TypeScript、Vite、Tailwind CSS 與 GSAP 開發。
+中英翻譯使用 i18next／react-i18next，語言切換位於主題按鈕旁。
 
 [瀏覽作品集](https://Yoyo8787.github.io/Yoyo-s-Portfolio/)
 

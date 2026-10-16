@@ -1,15 +1,18 @@
+import { useTranslation } from "react-i18next";
+
 interface ColorButtonProps {
     isDarkMode: boolean;
     toggleTheme: () => void;
 }
 
 const ColorButton = ({ isDarkMode, toggleTheme }: ColorButtonProps) => {
+    const { t } = useTranslation();
     return (
         <button
             type="button"
-            aria-label={isDarkMode ? "切換為淺色主題" : "切換為深色主題"}
+            aria-label={t(isDarkMode ? "theme.light" : "theme.dark")}
             aria-pressed={isDarkMode}
-            className="fixed top-4 right-4 w-11 h-11 grid place-items-center rounded-xl border-2 border-solid border-primary bg-surface shadow-card z-99 cursor-pointer [&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-foreground!"
+            className="w-11 h-11 grid place-items-center rounded-xl border-2 border-solid border-primary bg-surface shadow-card cursor-pointer [&_svg]:w-5 [&_svg]:h-5 [&_svg]:fill-foreground!"
             onClick={toggleTheme}
         >
             <svg

@@ -50,6 +50,7 @@ export interface ProjectFeature {
 }
 
 export interface Project {
+    isPersonal: boolean;
     title: string;
     cardTitle: string[];
     organization: string;
@@ -60,18 +61,21 @@ export interface Project {
     /** 公司專案內容已去識別化。 */
     deidentified?: boolean;
     /** 標題右側的專案資訊，例如角色、範圍。 */
-    meta?: { label: string; value: string }[];
+    meta?: Record<string, { label: string; value: string }>;
     summary?: string;
     tags?: string[];
     featuresHeading?: string;
     introduction: TextPart[];
     technology: TextPart[];
-    features: ProjectFeature[];
+    features: Record<string, ProjectFeature>;
     contribution: TextPart[];
 }
 
 export interface TimelineEntry {
-    period: string;
+    id: string;
+    startYear: number;
+    /** null 表示仍在進行。 */
+    endYear: number | null;
     organization: string;
     details: string[];
     summary: string;
@@ -79,5 +83,5 @@ export interface TimelineEntry {
 
 export interface SkillGroup {
     title: string;
-    items: string[];
+    items: Record<string, string>;
 }

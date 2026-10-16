@@ -1,10 +1,13 @@
+import { useTranslation } from "react-i18next";
+
 const Personal = () => {
+    const { t } = useTranslation();
     return (
         <div className="grid place-items-center h-full">
             <div>
-                <h2 className="text-4xl">徐天祐</h2>
+                <h1 className="text-4xl">{t("personal.name")}</h1>
                 <div className="ml-4">
-                    前端工程師
+                    {t("personal.role")}
                 </div>
             </div>
         </div>

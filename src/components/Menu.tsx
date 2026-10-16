@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { MenuId, MenuItem } from "../types";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { menuHashes } from "../constants/menu";
 
 interface MenuProps {
@@ -11,8 +12,9 @@ interface MenuProps {
 }
 
 const Menu = ({ propstyle, items, selectedItem, selectItem }: MenuProps) => {
+    const { t } = useTranslation();
     return (
-        <nav aria-label="主要導覽" className="relative w-[90%] max-w-140 flex justify-around h-11 rounded-[1.375rem] border-2 border-solid border-primary bg-surface shadow-card" style={propstyle}>
+        <nav aria-label={t("navigation")} className="relative w-[90%] max-w-140 flex justify-around h-11 rounded-[1.375rem] border-2 border-solid border-primary bg-surface shadow-card" style={propstyle}>
             {items.map((item) => {
                 const selected = selectedItem === item.id;
                 return (
@@ -27,7 +29,7 @@ const Menu = ({ propstyle, items, selectedItem, selectItem }: MenuProps) => {
                         }}
                     >
                         {React.cloneElement(item.icon, { className: "w-4 h-4" })}
-                        <span className="text-[1rem]">{item.text}</span>
+                        <span className="text-[1rem] mobile:text-sm">{item.text}</span>
                     </a>
                 );
             })}

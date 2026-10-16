@@ -1,5 +1,6 @@
 import type { KeyboardEvent, ReactNode } from "react";
 import { useLayoutEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import { TbArrowRight, TbArrowUpRight, TbMail } from "react-icons/tb";
@@ -17,12 +18,13 @@ interface BentoCardProps {
 const animationStyles = "transform,transformOrigin,width,height,position,top,left,zIndex,maxWidth,maxHeight,minWidth,minHeight,paddingTop,paddingRight,paddingBottom,paddingLeft,transition";
 
 const actionIcons = {
-    content: { Icon: TbArrowRight, label: "查看詳情" },
-    link: { Icon: TbArrowUpRight, label: "在新分頁開啟" },
-    mail: { Icon: TbMail, label: "寄信" },
-};
+    content: { Icon: TbArrowRight, label: "detail" },
+    link: { Icon: TbArrowUpRight, label: "newTab" },
+    mail: { Icon: TbMail, label: "mail" },
+} as const;
 
 const BentoCard = ({ children, placement, interaction, tone = "default" }: BentoCardProps) => {
+    const { t } = useTranslation();
     const boxRef = useRef<HTMLDivElement>(null);
     const flipRef = useRef<gsap.core.Timeline | null>(null);
     const clickRef = useRef<gsap.core.Timeline | null>(null);
@@ -82,7 +84,7 @@ const BentoCard = ({ children, placement, interaction, tone = "default" }: Bento
 
     return (
         <div
-            style={{ opacity, filter }}
+            style={{ gridArea, opacity, filter }}
             ref={boxRef}
             inert={disabled}
             onClick={interactive ? activate : undefined}
@@ -102,12 +104,12 @@ const BentoCard = ({ children, placement, interaction, tone = "default" }: Bento
             {interaction.type === "link" && (
                 <a href={interaction.href}
                     {...(isMail ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-                    aria-label={isMail ? `寄信給 ${interaction.href.slice("mailto:".length)}` : `${interaction.href}（在新分頁開啟）`}
+                    aria-label={isMail ? t("mailTo", { email: interaction.href.slice("mailto:".length) }) : t("externalLink", { url: interaction.href })}
                     className="absolute inset-0 z-10" />
             )}
             {action && (
                 <span className="absolute top-3 right-3 z-20 w-7 h-7 grid place-items-center rounded-full bg-surface text-primary-ink pointer-events-none"
-                    aria-label={action.label} role="img">
+                    aria-label={t(action.label)} role="img">
                     <action.Icon aria-hidden />
                 </span>
             )}

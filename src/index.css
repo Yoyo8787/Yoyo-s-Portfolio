@@ -152,4 +152,12 @@
         );
         border-radius: 10px;
     }
+
+    .dialog-scroll::-webkit-scrollbar-thumb {
+        background-color: color-mix(in srgb, var(--primarycolor) 20%, var(--oninkcolor));
+    }
+
+    .dialog-scroll::-webkit-scrollbar-thumb:hover {
+        background-color: color-mix(in srgb, var(--primarycolor) 40%, var(--oninkcolor));
+    }
 }

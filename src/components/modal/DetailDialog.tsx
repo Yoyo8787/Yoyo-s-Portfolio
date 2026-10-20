@@ -63,7 +63,7 @@ const DetailDialog = ({ children, open, onClose, scrollKey, size, labelledBy }: 
                     >
                         <IoMdClose />
                     </button>
-                    <div ref={scrollRef} className="min-h-0 overflow-y-auto overflow-x-hidden">{children}</div>
+                    <div ref={scrollRef} className="dialog-scroll min-h-0 overflow-y-auto overflow-x-hidden">{children}</div>
                 </div>
             )}
         </dialog>

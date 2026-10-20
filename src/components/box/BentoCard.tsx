@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import { TbArrowRight, TbArrowUpRight, TbMail } from "react-icons/tb";
 import type { CardInteraction, CardPlacement, CardTone } from "../../types";
+import { tabAnimation } from "../../constants/animation";
 
 gsap.registerPlugin(Flip);
 
@@ -56,8 +57,8 @@ const BentoCard = ({ children, placement, interaction, tone = "default" }: Bento
         restoreLayout();
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return stopAnimations;
         flipRef.current = Flip.from(state, {
-            duration: 0.6,
-            ease: "back.out(1.2)",
+            duration: tabAnimation.duration,
+            ease: tabAnimation.ease,
             absolute: true,
             onComplete: restoreLayout,
         });

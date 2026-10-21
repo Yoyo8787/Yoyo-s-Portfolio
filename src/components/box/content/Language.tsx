@@ -5,7 +5,8 @@ const Language = () => {
     return (
         <>
             <h2>{t("language.title")}</h2>
-            <div className="mt-2">{t("language.certificate")}</div>
+            <p className="mt-2 font-display text-4xl tablet:text-[clamp(1.25rem,7vw,2.25rem)] leading-tight whitespace-nowrap">TOEIC 890</p>
+            <p className="mt-1 text-sm">{t("language.certificate")}</p>
         </>
     );
 };

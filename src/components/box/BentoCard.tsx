@@ -1,4 +1,4 @@
-import type { KeyboardEvent, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useLayoutEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
@@ -11,6 +11,7 @@ gsap.registerPlugin(Flip);
 
 interface BentoCardProps {
     children: ReactNode;
+    titleId: string;
     placement: CardPlacement;
     interaction: CardInteraction;
     tone?: CardTone;
@@ -24,7 +25,7 @@ const actionIcons = {
     mail: { Icon: TbMail, label: "mail" },
 } as const;
 
-const BentoCard = ({ children, placement, interaction, tone = "default" }: BentoCardProps) => {
+const BentoCard = ({ children, titleId, placement, interaction, tone = "default" }: BentoCardProps) => {
     const { t } = useTranslation();
     const boxRef = useRef<HTMLDivElement>(null);
     const flipRef = useRef<gsap.core.Timeline | null>(null);
@@ -52,7 +53,7 @@ const BentoCard = ({ children, placement, interaction, tone = "default" }: Bento
 
     useLayoutEffect(() => {
         const box = boxRef.current!;
-        if (disabled && document.activeElement === box) box.blur();
+        if (disabled && box.contains(document.activeElement)) (document.activeElement as HTMLElement)?.blur();
         const state = Flip.getState(box);
         restoreLayout();
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return stopAnimations;
@@ -88,24 +89,19 @@ const BentoCard = ({ children, placement, interaction, tone = "default" }: Bento
             style={{ gridArea, opacity, filter }}
             ref={boxRef}
             inert={disabled}
-            onClick={interactive ? activate : undefined}
-            {...(isButton ? {
-                role: "button",
-                tabIndex: 0,
-                onKeyDown: (event: KeyboardEvent) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        if (!event.repeat) activate();
-                    }
-                },
-            } : {})}
             className={`${className} ${colors} p-4 rounded-2xl overflow-hidden`}
         >
             {children}
+            {isButton && (
+                <button type="button" aria-labelledby={titleId}
+                    onClick={activate}
+                    className="absolute inset-0 z-10 border-0 bg-transparent cursor-pointer" />
+            )}
             {interaction.type === "link" && (
                 <a href={interaction.href}
                     {...(isMail ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                     aria-label={isMail ? t("mailTo", { email: interaction.href.slice("mailto:".length) }) : t("externalLink", { url: interaction.href })}
+                    onClick={activate}
                     className="absolute inset-0 z-10" />
             )}
             {action && (

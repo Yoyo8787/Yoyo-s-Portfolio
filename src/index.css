@@ -161,3 +161,15 @@
         background-color: color-mix(in srgb, var(--primarycolor) 40%, var(--oninkcolor));
     }
 }
+
+@keyframes background-wave {
+    to { transform: translateX(-100px); }
+}
+
+.background-waves {
+    animation: background-wave 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .background-waves { animation: none; }
+}

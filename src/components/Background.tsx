@@ -1,50 +1,25 @@
-import { useEffect, useRef } from "react";
+const wavePaths = Array.from({ length: 15 }, (_, index) => {
+    const points = Array.from({ length: 401 }, (_, point) => {
+        const x = point / 2;
+        const y = Math.sin((x / 100) * 4 * Math.PI + index * (Math.PI / 15)) * 3 + 25 + index * 0.2;
+        return `${x},${y}`;
+    });
+    return `M ${points.join(" L ")}`;
+});
 
-const ribs = Array.from({ length: 15 }, (_, index) => ({
-    phaseShift: index * (Math.PI / 15),
-    dy: index * 0.2,
-}));
-const points = Array.from({ length: 200 }, (_, index) => ({
-    x: (index / 200) * 100,
-    phase: (index / 200) * 4 * Math.PI,
-}));
-const wavePath = (index: number, offset: number) => `M ${points.map(({ x, phase }) => {
-    const { phaseShift, dy } = ribs[index];
-    const y = Math.sin(phase + (offset / 100) * 2 * Math.PI + phaseShift) * 3 + 50 + dy;
-    return `${x},${y}`;
-}).join(" L ")}`;
-
-const Background = () => {
-    const pathRefs = useRef<(SVGPathElement | null)[]>([]);
-
-    useEffect(() => {
-        // 使用者偏好減少動態時保持靜態波浪。
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        let offset = 0;
-        let frameId: number;
-        const animate = () => {
-            // 分頁在背景時跳過重算，回到前景再繼續。
-            if (!document.hidden) {
-                offset = (offset + 0.05) % 100;
-                pathRefs.current.forEach((path, index) => path?.setAttribute("d", wavePath(index, offset)));
-            }
-            frameId = requestAnimationFrame(animate);
-        };
-        frameId = requestAnimationFrame(animate);
-        return () => cancelAnimationFrame(frameId);
-    }, []);
-
-    return (
-        <svg aria-hidden="true" style={{ position: "absolute" }} width="100vw" height="100vh"
-            viewBox="0 0 100 50" preserveAspectRatio="none">
-            {ribs.map((_, index) => (
-                <path key={index} ref={(path) => { pathRefs.current[index] = path; }}
-                    d={wavePath(index, 0)} fill="none"
-                    stroke={index % 2 === 0 ? "var(--accentcolor)" : "var(--secondarycolor)"} strokeWidth="0.12"
-                    style={{ opacity: "0.7", transform: "rotate(24deg) translate(-5%,-110%) scale(1.2)" }} />
-            ))}
-        </svg>
-    );
-};
+const Background = () => (
+    <svg aria-hidden="true" className="fixed inset-0 w-full h-full pointer-events-none"
+        viewBox="0 0 100 50" preserveAspectRatio="none">
+        <g transform="rotate(24 50 25) translate(-10 -5) scale(1.2)">
+            <g className="background-waves">
+                {wavePaths.map((path, index) => (
+                    <path key={index} d={path} fill="none"
+                        stroke={index % 2 === 0 ? "var(--accentcolor)" : "var(--secondarycolor)"}
+                        strokeWidth="0.12" opacity="0.7" />
+                ))}
+            </g>
+        </g>
+    </svg>
+);
 
 export default Background;

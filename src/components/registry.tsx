@@ -1,9 +1,7 @@
 import type { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
 import { FaGithub } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { contacts } from "../constants/contacts";
-import { getJobs, getSchools } from "../constants/experience";
 import * as configs from "../constants/boxLayouts";
 import type { BoxConfig, CardAction, CardInteraction, CardTone, DetailDefinition } from "../types";
 import PersonalSummary from "./box/content/Personal";
@@ -47,13 +45,6 @@ const skillDetail: DetailDefinition = {
     render: () => <Skill />,
 };
 
-const schoolDetail: DetailDefinition = {
-    id: "school",
-    titleId: "timeline-title",
-    size: "sm",
-    render: () => <Timeline initialTab="school" />,
-};
-
 const jobDetail: DetailDefinition = {
     id: "job",
     titleId: "timeline-title",
@@ -61,20 +52,25 @@ const jobDetail: DetailDefinition = {
     render: () => <Timeline initialTab="job" />,
 };
 
+const schoolDetail: DetailDefinition = {
+    id: "school",
+    titleId: "timeline-title",
+    size: "sm",
+    render: () => <Timeline initialTab="school" />,
+};
+
 export const useCardRegistry = (): CardDefinition[] => {
-    const { t } = useTranslation();
 
     return [
         ...configs.showcaseConfigs.map(({ id, config, presentation }) => ({
             id,
-            content: <ProjectShowcase projectId={id} presentation={presentation} />,
+            content: <ProjectShowcase projectId={id} presentation={presentation} titleId={`card-${id}-title`} />,
             config,
             action: { type: "content" as const, detail: getProjectDetail(id) },
         })),
         { id: "language", content: <Language />, config: configs.languageBoxConfig, action: { type: "none" } },
-        { id: "school", content: <ExperienceSummary title={t("education")} entries={getSchools(t)} />, config: configs.schoolBoxConfig, action: { type: "content", detail: schoolDetail } },
-        { id: "personal", content: <PersonalSummary />, config: configs.personalBoxConfig, action: { type: "content", detail: personalDetail } },
-        { id: "skill", content: <SkillSummary />, config: configs.skillBoxConfig, action: { type: "content", detail: skillDetail } },
+        { id: "personal", content: <PersonalSummary titleId="card-personal-title" />, config: configs.personalBoxConfig, action: { type: "content", detail: personalDetail } },
+        { id: "skill", content: <SkillSummary titleId="card-skill-title" />, config: configs.skillBoxConfig, action: { type: "content", detail: skillDetail } },
         {
             id: "email",
             content: <ContactSummary icon={MdEmail} label={contacts.email} />,
@@ -88,6 +84,7 @@ export const useCardRegistry = (): CardDefinition[] => {
             action: { type: "link", url: contacts.github },
             tone: "ink",
         },
-        { id: "job", content: <ExperienceSummary title={t("work")} entries={getJobs(t)} />, config: configs.jobBoxConfig, action: { type: "content", detail: jobDetail } },
+        { id: "job", content: <ExperienceSummary titleId="card-job-title" kind="job" />, config: configs.jobBoxConfig, action: { type: "content", detail: jobDetail } },
+        { id: "school", content: <ExperienceSummary titleId="card-school-title" kind="school" />, config: configs.schoolBoxConfig, action: { type: "content", detail: schoolDetail } },
     ];
 };
